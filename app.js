@@ -1,0 +1,220 @@
+$fsx.f[49]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0}),$fsx.r(42),$fsx.r(43),$fsx.r(44),$fsx.r(48),console.log("sample-v:",1)},$fsx.f[42]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);var s=$fsx.r(12);t.IGridConfig=s.IGridConfig;const i=$fsx.r(36),o=$fsx.r(37),a=$fsx.r(41);class n extends HTMLElement{constructor(){super(),this._DATASET_ALL=[],this._DATASET_FILTERED=[],this._DATASET_VIEW=[],this.rowCache=[],this.arrayUtils=new a.ArrayUtils(this),this.selection=new o.Selection(this)}set config(e){if(this._CONFIG=e,this.config){this.config.sortingSet&&this.arrayUtils.setOrderBy(this.config.sortingSet),this.config.groupingSet&&this.arrayUtils.setGrouping(this.config.groupingSet),this.config.groupingExpanded&&this.arrayUtils.setExpanded(this.config.groupingExpanded);const e=this.arrayUtils.orderBy(this.activeData,null,!1);this.arrayUtils.arraySort.SetConfigSort(this.config.columns),this.viewRows=e.fixed}}get config(){return this._CONFIG}set data(e){const t=this.data;if(e.forEach((t,r)=>{t&&!t.__fg_key?t.__fg_key=this.selection.getKey():e[r]||(e[r]={__fg_key:this.selection.getKey()})}),this._DATASET_ALL=Array.from(e,e=>Object.assign({},e)),this._DATASET_FILTERED=this._DATASET_ALL.slice(),this._DATASET_VIEW=this._DATASET_ALL.slice(),t.length!==this._DATASET_ALL.length){const e=this.getElementsByTagName("free-grid-body")[0];e&&(e.scrollTop=0),this.resetRowCache()}if(this.config){this.config.sortingSet&&this.arrayUtils.setOrderBy(this.config.sortingSet),this.config.groupingSet&&this.arrayUtils.setGrouping(this.config.groupingSet);const e=this.arrayUtils.orderBy(this.activeData,null,!1);this.arrayUtils.arraySort.SetConfigSort(this.config.columns),this.viewRows=e.fixed}this.render()}get data(){return this._DATASET_ALL}set activeData(e){this._DATASET_FILTERED=e}get activeData(){return this._DATASET_FILTERED}set viewRows(e){this._DATASET_VIEW=e}get viewRows(){return this._DATASET_VIEW}connectedCallback(){this.render()}reRender(e){requestAnimationFrame(()=>{this.config=e||this.config,this.render()})}manualConfigChange(){if(this.config){this.config.sortingSet&&this.arrayUtils.setOrderBy(this.config.sortingSet),this.config.groupingSet&&this.arrayUtils.setGrouping(this.config.groupingSet),this.config.groupingExpanded&&this.arrayUtils.setExpanded(this.config.groupingExpanded);const e=this.arrayUtils.orderBy(this.activeData,null,!1);this.arrayUtils.arraySort.SetConfigSort(this.config.columns),this.viewRows=e.fixed}this.reRender()}render(){this.config?r.render(r.html`
+                    ${i.gridTemplate(this,this.rowCache)}
+                `,this):this.isConnected&&(console.error("no config set"),r.render(r.html``,this))}resetRowCache(){const e=this._DATASET_VIEW.length>40?40:this._DATASET_VIEW.length;this.rowCache=[];for(let t=0;t<e;t++)this.rowCache.push({i:t})}}t.FreeGrid=n,customElements.get("free-grid")||customElements.define("free-grid",n)},$fsx.f[12]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0})},$fsx.f[36]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(13),i=$fsx.r(16),o=$fsx.r(24),a=$fsx.r(34),n=$fsx.r(35);t.gridTemplate=(e,t)=>{const l=s.scrollEvent(e,t);return r.html`
+        ${i.panelElement(e)} ${o.headerElement(e)} ${a.bodyElement(l,e,t)}
+        ${n.footerElement(e)}
+    `}},$fsx.f[13]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.scrollEvent=function(e,t){return r=>{if(e.config.scrollLeft!==r.target.scrollLeft)e.config.scrollLeft=r.target.scrollLeft,e.reRender();else{window.focus(),document.activeElement&&document.activeElement.blur();const s=e.config.rowHeight||25,i=t.length,o=e.viewRows.length,a=s*i,n=r.target.clientHeight,l=r.target.scrollTop,c=e.config.lastScrollTop;let d=!0;l<c&&(d=!1);let h=!1;Math.abs(l-c)>100&&(h=!0),e.config.lastScrollTop=l;let u=Math.floor(l/s);if(h)for(let e=0;e<i;e++)t[e].i=u,u++;else{for(let e=0;e<i;e++){const r=t[e].i*s;let i,c=!1;d?r<l-s&&(c=!0,i=r+a,u=(r+a)/s):r>l+n&&(c=!0,i=r-a,u=(r-a)/s),!0===c&&u>=0&&u<=o&&(t[e].i=i/s)}t.sort()}e.render()}}}},$fsx.f[16]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14),i=$fsx.r(15);t.panelElement=function(e){const t=e.config.groupingSet||[],o=i.columnDragDropPanel("enter",e),a=i.columnDragDropPanel("leave",e);return r.html`
+        <free-grid-panel
+            @custom-1=${s.eventIF(!0,"mouseleave",a)}
+            @custom-2=${s.eventIF(!0,"mouseenter",o)}
+            style="height:${e.config.panelHeight}px"
+            class="free-grid-panel"
+        >
+            ${t.map(t=>r.html`
+                    <div @mouseenter=${e=>{e.target.getElementsByClassName("free-grid-icon")[0].classList.remove("free-grid-iconhidden")}} @mouseleave=${e=>{e.target.getElementsByClassName("free-grid-icon")[0].classList.add("free-grid-iconhidden")}} class="free-grid-grouping-panel-container">
+                        <p class="free-grid-grouping-panel-p">
+                            ${t.title||t.field}
+                            <i>
+                                <svg
+                                    @click=${()=>{e.arrayUtils.removeGroupBinded(t)}}
+                                    class="free-grid-icon free-grid-iconhidden"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 16 16"
+                                >
+                                    ${r.svg`<path d="M3 4l4.3 4L3 12h1.4L8 8.7l3.5 3.3H13L8.6 8 13 4h-1.5L8 7.3 4.4 4H3z"/>`}
+                                </svg></i
+                            >
+                        </p>
+                    </div>
+                `)}
+        </free-grid-panel>
+    `}},$fsx.f[14]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=new WeakMap;t.eventIF=r.directive((e,t,i)=>o=>{const a=s.get(o);if(void 0===a){const a=new class{constructor(e,t,s,i){if(!(e instanceof r.EventPart&&"custom"===e.eventName.substr(0,6)))throw new Error('myListDirective can only be used on "@custom" eventName');this.part=e,this.arg=t,this.event=s,this.caller=i,this.handlerBinded=this.handler.bind(this),t&&e.element.addEventListener(s,this.handlerBinded)}handler(e){this.caller(e)}update(e,t,r){this.part=o,this.caller=r,this.arg&&e?this.event!==t&&(this.part.element.removeEventLister(this.event,this.handlerBinded),this.event=t,this.part.element.addEventListener(t,this.handlerBinded)):(this.arg&&!e&&(this.part.element.removeEventLister(this.event,this.handlerBinded),this.event=t),!this.arg&&e&&(this.event=t,this.part.element.addEventListener(t,this.handlerBinded)))}}(o,e,t,i);s.set(o,a)}else a.update(e,t,i)})},$fsx.f[15]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});let r=null,s=null,i=null,o=null,a=null;t.columnDragDropPanel=(e,t)=>{const s=e=>{e.target.removeEventListener("mouseup",s),t.config.columns[r].allowGrouping&&t.arrayUtils.groupingCallbackBinded(e,t.config.columns[r],t),e.target.classList.remove("free-grid-candrop")};return i=>{"enter"===e&&r&&(i.target.addEventListener("mouseup",s),t.config.columns[r].allowGrouping&&i.target.classList.add("free-grid-candrop")),"leave"===e&&r&&(i.target.removeEventListener("mouseup",s),i.target.classList.remove("free-grid-candrop"))}},t.columnDragDrop=(e,t,n,l)=>{const c=function(){document.removeEventListener("mouseup",c),document.removeEventListener("mousemove",d),clearTimeout(a),r=null,s=null,o=null,i&&document.body.removeChild(i),i=null},d=function(e){if(i.style.top=e.clientY+document.documentElement.scrollTop+"px",i.style.left=e.clientX+document.documentElement.scrollLeft+"px",null!==s&&r!==s){const t=o,i=e.clientX+document.documentElement.scrollLeft;if(i+15>t.center&&i-15<t.center){const e=l.config.columns,t=e[r];e[r]=e[s],e[s]=t,r=s,s=null,l.reRender()}}};return l=>{"dragstart"===e&&0===l.button&&"P"===l.target.tagName&&(document.addEventListener("mouseup",c),r=n,a=setTimeout(()=>{(i=document.createElement("div")).style.top="-1200px",i.style.left="-1200px",i.classList.add("free-grid"),i.classList.add("free-grid-drag"),i.textContent=t.header,document.body.appendChild(i),document.addEventListener("mousemove",d)},500)),"enter"===e&&null!==r&&r!==n&&(s=n,o=function(e,t){const r=e.getBoundingClientRect(),s=window.pageXOffset||document.documentElement.scrollLeft,i=window.pageYOffset||document.documentElement.scrollTop;return{top:r.top+i,left:r.left+s,center:r.left+t/2+s}}(l.target,t.width||100))}}},$fsx.f[24]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(23);t.headerElement=function(e){const t=`left:${void 0!==e.config.scrollLeft?-e.config.scrollLeft:0}px;\n                   top:${e.config.panelHeight}px;\n                   height:${e.config.headerHeight}px;\n                   width:${e.config.columns.map(e=>e.width||100).reduce((e,t)=>e+t)+25}px`,i=e.config;return i.headerRenderCallBackFn?r.html`
+              <free-grid-header style=${t} class="free-grid-header">
+                  ${i.headerRenderCallBackFn(r.html,null,null,null,e)}
+              </free-grid-header>
+          `:r.html`
+              <free-grid-header style=${t} class="free-grid-header">
+                  ${s.headerColumnElements(e)}
+              </free-grid-header>
+          `}},$fsx.f[23]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(17),i=$fsx.r(22),o=$fsx.r(15),a=$fsx.r(14);t.headerColumnElements=function(e){const t=e.config.groupingSet&&e.config.groupingSet.length;let n=t?15*t:0;return e.config.columns.map((l,c)=>{if(l.hide)return r.html``;{const d=`width:${l.width||100}px;left:${n}px`,h=o.columnDragDrop("dragstart",l,c,e),u=o.columnDragDrop("enter",l,c,e),g=r.html`
+                ${r.html`
+                    <free-grid-col
+                        class="free-grid-col free-grid-grouping-row"
+                        style="width:${t?15*t:0}px;left:0"
+                    >
+                    </free-grid-col>
+                `}
+                <free-grid-header-col
+                    style=${d}
+                    class="free-grid-col ${l.disableDragDrop?"":"free-grid-dragHandle"}"
+                    config-column=${c}
+                    @custom-1=${a.eventIF(!l.disableDragDrop,"mousedown",h)}
+                    @custom-2=${a.eventIF(!l.disableDragDrop,"mouseenter",u)}
+                >
+                    ${i.headerColumContent(e,l)} ${s.resizeColumnElement(e,l)}
+                </free-grid-header-col>
+            `;return n+=l.width||100,g}})}},$fsx.f[17]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);t.resizeColumnElement=function(e,t){let s=null;const i=t.width,o=r=>{if(r.preventDefault(),s&&Math.abs(s-r.screenX)%2==0){const o=s-r.screenX,a=i-o;t.width=a>10?a:10,requestAnimationFrame(()=>{e.reRender()})}},a=()=>{document.removeEventListener("mousemove",o),document.removeEventListener("mouseup",a)};return r.html`
+        <div class="free-grid-draggable-handler" @mousedown=${e=>{s=e.screenX,document.addEventListener("mousemove",o),document.addEventListener("mouseup",a)}}></div>
+    `}},$fsx.f[22]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(20),s=$fsx.r(21),i=$fsx.r(11);t.headerColumContent=function(e,t){const o=r=>{t.sortable.beforeSortCallbackFn&&t.sortable.beforeSortCallbackFn(r,t,e),!1!==t.sortable.auto&&e.arrayUtils.sortCallbackBinded(r,t,e)},a=r=>{0===r.button?(r.target.addEventListener("mouseup",o),setTimeout(()=>{r.target.removeEventListener("mouseup",o)},500)):t.allowGrouping&&e.arrayUtils.groupingCallbackBinded(r,t,e)};return t.headerRenderCallBackFn?t.headerRenderCallBackFn(i.html,t,null,null,e):t.filterable?r.headerWithFilterElements(t,e,a,t.filterable.filterOverLabel):s.headerWithoutFilterElement(t,e,a)}},$fsx.f[20]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(18),i=$fsx.r(14),o=$fsx.r(19);t.headerWithFilterElements=function(e,t,a,n){const l=`free-grid-label-${n?"top":"bottom"}`,c=e.headerRenderLabelCallBackFn?e.headerRenderLabelCallBackFn(r.html,e,null,null,t):r.html`
+              <p class=${l} @custom=${i.eventIF(e.sortable,"mousedown",a)} oncontextmenu="return false;">
+                  ${e.header||""} ${s.sorticonElement(t,e)}
+              </p>
+          `,d=r.html`
+        ${o.filterInputElement(e,t,e.filterable.filterOverLabel)}
+    `;return n?r.html`
+            ${d}${c}
+        `:r.html`
+            ${c}${d}
+        `}},$fsx.f[18]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);t.sorticonElement=function(e,t){const s=r.svg`
+        <svg class="free-grid-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path d="M7.4 6L3 10h1.5L8 7l3.4 3H13L8.5 6h-1z"/>
+        </svg>`,i=r.svg`
+        <svg class="free-grid-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path d="M7.4 10L3 6h1.5L8 9.2 11.3 6H13l-4.5 4h-1z"/>
+        </svg>`;return t.sortable&&t.sortable.sortNo?r.html`
+            <i class="free-grid-fa-sort-number" data-vgridsort="${t.sortable.sortNo}">
+                ${t.sortable.sortAscending?s:i}
+            </i>
+        `:r.html``}},$fsx.f[19]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14);t.filterInputElement=function(e,t,i){const o=e.filterable.currentValue||null,a=e.filterable.placeholder||"";let n;n="boolean"===e.type?"free-grid-row-checkbox-50":i?"free-grid-header-input-top":"free-grid-header-input-bottom";const l="boolean"===e.type?"checkbox":e.type,c=r=>{if("boolean"===e.type){const e=r.target;switch(e.state){case 0:e.state=2,e.style.opacity="1",e.checked=!0,e.indeterminate=!1;break;case 2:e.state=3,e.style.opacity="1",e.indeterminate=!1;break;default:e.checked=!1,e.state=0,e.style.opacity="0.3",e.indeterminate=!0}}e.filterable.beforeFilterCallbackFn&&e.filterable.beforeFilterCallbackFn(r,e,t),!1!==e.filterable.auto&&t.arrayUtils.filterCallbackBinded(r,e,t)};let d=null,h=!1,u=0;return"boolean"===e.type&&e.filterable&&(!1!==e.filterable.currentValue&&!0!==e.filterable.currentValue?(d="opacity:0.3",h=!0,u=0):u=e.filterable.currentValue?2:3),e.headerRenderInputCallBackFn?e.headerRenderInputCallBackFn(r.html,e,null,null,t):r.html`
+              <input
+                  type=${l}
+                  style=${d}
+                  .indeterminate=${h}
+                  .state=${u}
+                  class=${n}
+                  @custom=${s.eventIF(!0,e.filterable.filterTrigger||"change",c)}
+                  @custom-keydown=${s.eventIF(!0,"keydown",e=>{13===(e.keyCode?e.keyCode:e.which)&&c(e)})}
+                  .value=${o}
+                  placeholder=${a}
+              />
+          `}},$fsx.f[21]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14),i=$fsx.r(18);t.headerWithoutFilterElement=function(e,t,o){return e.headerRenderLabelCallBackFn?e.headerRenderLabelCallBackFn(r.html,e,null,null,t):r.html`
+              <p
+                  class="free-grid-label-full"
+                  @custom=${s.eventIF(e.sortable,"mousedown",o)}
+                  oncontextmenu="return false;"
+              >
+                  ${e.header||""} ${i.sorticonElement(t,e)}
+              </p>
+          `}},$fsx.f[34]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(33);t.bodyElement=function(e,t,i){const o=`\n            top:${t.config.panelHeight+t.config.headerHeight}px;\n            bottom:${t.config.footerHeight}px`,a=`\n            height:${(t.viewRows.length||0)*t.config.rowHeight}px;\n            width:${t.config.columns.map(e=>e.width||100).reduce((e,t)=>e+t)}px`;return r.html`
+        <free-grid-body @scroll=${e} style=${o} class="free-grid-body">
+            <free-grid-body-content style=${a} class="free-grid-content">
+                ${i.map(e=>s.rowElement(t,t.viewRows[e.i],e))}
+            </free-grid-body-content>
+        </free-grid-body>
+    `}},$fsx.f[33]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(25),s=$fsx.r(31),i=$fsx.r(32);t.rowElement=function(e,t,o){const a=`\n        display:${t?"block":"none"};\n        height:${e.config.rowHeight}px;\n        transform:translate3d(0px, ${e.config.rowHeight*o.i}px, 0px);\n        width:${e.config.columns.map(e=>e.width||100).reduce((e,t)=>e+t)}px`,n=t=>{e.config.beforeSelectionChangeCallBackFn&&e.config.beforeSelectionChangeCallBackFn(t,o.i,e),e.selection.highlightRow(t,o.i,e),e.config.afterSelectionChangeCallBackFn&&e.config.beforeSelectionChangeCallBackFn(t,o.i,e)};switch(!0){case"function"==typeof e.config.rowRenderCallBackFn:return r.rowElementsCustomRender(a,n,e,o.i,t);case t&&t.__group:return i.rowElementsGroupRender(a,n,e,o.i,t);default:return s.rowElementsStandardRender(a,n,e,o.i,t)}}},$fsx.f[25]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);t.rowElementsCustomRender=function(e,t,s,i,o){return r.html`
+        <free-grid-row
+            style=${e}
+            class="free-grid-row ${s.selection.isSelected(i)?"free-grid-selected-row":""}"
+            @click=${t}
+        >
+            ${s.config.rowRenderCallBackFn(r.html,null,i,o,s)}
+        </free-grid-row>
+    `}},$fsx.f[31]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(26),i=$fsx.r(27),o=$fsx.r(28),a=$fsx.r(29),n=$fsx.r(30);t.rowElementsStandardRender=function(e,t,l,c,d){const h=l.config.groupingSet&&l.config.groupingSet.length;let u=d&&h?15*d.__groupLvl:0;return r.html`
+        <free-grid-row
+            style=${e}
+            class="free-grid-row ${l.selection.isSelected(c)?"free-grid-selected-row":""}"
+            @click=${t}
+        >
+            <!-- ------------------------------ -->
+            <!-- We now get row based on config -->
+            <!-- ------------------------------ -->
+            ${r.html`
+                <free-grid-col
+                    class="free-grid-col free-grid-grouping-row"
+                    style="width:${d&&h?15*d.__groupLvl:0}px;left:0"
+                >
+                </free-grid-col>
+            `}
+            ${l.config.columns.map(e=>{if(e.hide)return r.html``;{const t=`width:${e.width||100}px; left:${u}px`,h=d?d[e.attribute]:"",g=t=>{if(e.beforeEditCallbackFn&&e.beforeEditCallbackFn(t,e,c,d,l),!1!==e.autoUpdateData)switch(e.type){case"boolean":d[e.attribute]=t.target.checked;break;case"image":break;case"date":d[e.attribute]=t.target.valueAsDate;break;case"number":d[e.attribute]=t.target.valueAsNumber;break;default:d[e.attribute]=t.target.value}e.afterEditCallbackFn&&e.afterEditCallbackFn(t,e,c,d,l)};let f;if(e.rowRenderCallBackFn)f=r.html`
+                            <free-grid-row-col style=${t} class="free-grid-col">
+                                ${e.rowRenderCallBackFn(r.html,e,c,d,l)}
+                            </free-grid-row-col>
+                        `;else switch(e.type){case"boolean":f=i.rowCheckboxColumnElement(t,e,g,h);break;case"image":f=a.rowImageColumnElement(t,h);break;case"date":f=n.rowDateColumnElement(t,e,g,h);break;case"number":f=o.rowNumberColumnElement(t,e,g,h);break;default:f=s.rowTextColumnElement(t,e,g,h)}return u+=e.width||100,f}})}
+        </free-grid-row>
+    `}},$fsx.f[26]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14);t.rowTextColumnElement=function(e,t,i,o){return r.html`
+        <free-grid-row-col style=${e} class="free-grid-col">
+            <input
+                ?readonly=${t.readonly}
+                ?disabled=${t.disabled}
+                @custom=${s.eventIF(!0,t.editEventType||"change",i)}
+                type="${t.type||"text"}"
+                .value=${o}
+                class="free-grid-row-input"
+            />
+        </free-grid-row-col>
+    `}},$fsx.f[27]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14);t.rowCheckboxColumnElement=function(e,t,i,o){return r.html`
+        <free-grid-row-col style=${e} class="free-grid-col">
+            <input
+                ?readonly=${t.readonly}
+                ?disabled=${t.disabled}
+                @custom=${s.eventIF(!0,t.editEventType||"change",i)}
+                type="checkbox"
+                .checked=${o}
+                class="free-grid-row-checkbox-100"
+            />
+        </free-grid-row-col>
+    `}},$fsx.f[28]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14);t.rowNumberColumnElement=function(e,t,i,o){return r.html`
+        <free-grid-row-col style=${e} class="free-grid-col">
+            <input
+                ?readonly=${t.readonly}
+                ?disabled=${t.disabled}
+                @custom=${s.eventIF(!0,t.editEventType||"change",i)}
+                type=${t.type}
+                .valueAsNumber=${o}
+                class="free-grid-row-input"
+            />
+        </free-grid-row-col>
+    `}},$fsx.f[29]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);t.rowImageColumnElement=function(e,t){return r.html`
+        <free-grid-row-col style=${e} class="free-grid-col">
+            <img .src=${t} class="free-grid-image-round" />
+        </free-grid-row-col>
+    `}},$fsx.f[30]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14);t.rowDateColumnElement=function(e,t,i,o){return r.html`
+        <free-grid-row-col style=${e} class="free-grid-col">
+            <input
+                ?readonly=${t.readonly}
+                ?disabled=${t.disabled}
+                @custom=${s.eventIF(!0,t.editEventType||"change",i)}
+                type=${t.type}
+                .valueAsDate=${o||null}
+                class="free-grid-row-input"
+            />
+        </free-grid-row-col>
+    `}},$fsx.f[32]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);t.rowElementsGroupRender=function(e,t,s,i,o){const a=r.html`
+        <i @click=${()=>{o.__groupExpanded?s.arrayUtils.groupCollapse(o.__groupID):s.arrayUtils.groupExpand(o.__groupID)}}>
+            <svg class="free-grid-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                ${o.__groupExpanded?r.svg`<path d="M4.8 7.5h6.5v1H4.8z" />`:r.svg`<path d="M7.4 4.8v2.7H4.7v1h2.7v3h1v-3h2.8v-1H8.5V4.8h-1z" />`}
+            </svg></i
+        ><span> ${o.__groupName} (${o.__groupTotal})</span>
+    `;return r.html`
+        <free-grid-row style=${e} class="free-grid-row free-grid-grouping-row">
+            ${o.__groupLvl?r.html`
+                      <free-grid-col
+                          class="free-grid-col free-grid-grouping-row"
+                          style="width:${o.__groupLvl?15*o.__groupLvl:0}px;left:0"
+                      >
+                      </free-grid-col>
+                  `:""}
+            ${r.html`
+                <free-grid-col
+                    class="free-grid-col-group"
+                    style="left:${o.__groupLvl?15*o.__groupLvl:0}px;right:0"
+                >
+                    ${a}
+                </free-grid-col>
+            `}
+        </free-grid-row>
+    `}},$fsx.f[35]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);t.footerElement=function(e){return e.config.footerHeight<1&&(e.config.footerHeight=1),e.config.footerRenderCallBackFn?r.html`
+            <free-grid-footer style="height:${e.config.footerHeight}px" class="free-grid-footer"
+                >${e.config.footerRenderCallBackFn(e,null,null,null,null)}</free-grid-footer
+            >
+        `:r.html`
+            <free-grid-footer style="height:${e.config.footerHeight}px" class="free-grid-footer"></free-grid-footer>
+        `}},$fsx.f[37]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});t.Selection=class{constructor(e){this.key=0,this.grid=e,this.selectedRows=0,this.selection=new Set([])}getKey(){return this.key++,this.key}isSelected(e){let t=!1;return this.selectedRows>0&&(t=this.selection.has(this.getRowKey(e))),t}deSelectAll(){this.selection.clear(),this.selectedRows=this.selection.size}highlightRow(e,t,r){let s,i=this.getSelectedRows(),o="";if(t!==this.lastRowSelected||i[0]!==t){if(t<=r.viewRows.length-1){if("multiple"===r.config.selectionMode)switch(e.shiftKey&&(o="shift",(i=this.getSelectedRows()).length>0&&"none"===this.lastKeyKodeUsed&&(this.lastRowSelected=i[0],this.lastKeyKodeUsed="shift")),e.ctrlKey&&(o="ctrl"),e.ctrlKey||e.shiftKey||(o="none"),!0){case"none"===o:this.select(t,!1);break;case"shift"===this.lastKeyKodeUsed&&"ctrl"===o:!0===(s=this.isSelected(t))?this.deSelect(t):this.select(t,!0),this.lastRowSelected=t;break;case"ctrl"===this.lastKeyKodeUsed&&"shift"===o:const r=this.getSelectedRows();this.selectRange(this.lastRowSelected,t);const a=this.getSelectedRows();this.setSelectedRows(r.concat(a));break;case"ctrl"===this.lastKeyKodeUsed&&"ctrl"===o:case"none"===this.lastKeyKodeUsed&&"ctrl"===o:!0===(s=this.isSelected(t))?this.deSelect(t):this.select(t,!0),this.lastRowSelected=t;break;case"shift"===this.lastKeyKodeUsed&&"shift"===o:this.lastRowSelected>t?this.selectRange(t,this.lastRowSelected):this.selectRange(this.lastRowSelected,t);break;case"none"===this.lastKeyKodeUsed&&"shift"===o:-1!==this.lastRowSelected?this.lastRowSelected>t?this.selectRange(t,this.lastRowSelected):this.selectRange(this.lastRowSelected,t):(this.lastRowSelected=t,this.select(t,!1));break;default:console.error("error, this should not happen, debug selection")}else this.select(t,!1);this.lastKeyKodeUsed=o,r.reRender()}}else e.ctrlKey&&(o="ctrl"),"ctrl"===o?(this.lastKeyKodeUsed=o,!0===(s=this.isSelected(t))&&this.deSelect(t),this.lastRowSelected=t):this.select(t,!1),r.reRender()}getRowKey(e){return this.grid.viewRows[e]&&this.grid.viewRows[e].__fg_key}getRowKeys(){const e=[];return this.grid.viewRows.forEach(t=>{e.push(t.__fg_key)}),e}deSelect(e){this.selection.delete(this.getRowKey(e)),this.selectedRows=this.selection.size}select(e,t){switch(this.grid.config.selectionMode){case"none":case null:case void 0:break;case"single":this.selection.clear(),this.selection.add(this.getRowKey(e)),this.selectedRows=this.selection.size;break;case"multiple":t?(this.selection.add(this.getRowKey(e)),this.selectedRows=this.selection.size):(this.selection.clear(),this.selection.add(this.getRowKey(e)),this.selectedRows=this.selection.size)}}selectRange(e,t){if("multiple"===this.grid.config.selectionMode){this.selection.clear();for(let r=e;r<t+1;r++)this.selection.add(this.getRowKey(r));this.selectedRows=this.selection.size}}getSelectedRows(){const e=[],t=this.getRowKeys();return this.selectedRows>0&&t.forEach((t,r)=>{!0===this.selection.has(t)&&e.push(r)}),e}setSelectedRows(e){this.selectedRows>0&&this.selection.clear();for(let t=0;t<e.length;t++)this.selection.add(this.getRowKey(e[t]));this.selectedRows=this.selection.size}}},$fsx.f[41]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(38),s=$fsx.r(39),i=$fsx.r(40);t.ArrayUtils=class{constructor(e){this.arrayFilter=new r.ArrayFilter,this.arraySort=new s.ArraySort,this.arrayGrouping=new i.ArrayGrouping,this.sortCallbackBinded=this.sortCallback.bind(this),this.filterCallbackBinded=this.filterCallback.bind(this),this.groupingCallbackBinded=this.groupingCallback.bind(this),this.removeGroupBinded=this.removeGroup.bind(this),this.freeGrid=e}orderBy(e,t,r){const s=this.getGrouping().map(e=>e.field),i=this.getGrouping();let o={fixed:null,full:null};if(s.length>0){const a=this.getOrderBy();this.resetSort();let n=!1,l=[],c=0;t?a.forEach(e=>{c++,-1!==s.indexOf(e.attribute)||r?(l.push(e),e.attribute===t&&(e.asc=!0!==e.asc,e.no=c,n=!0)):e.attribute===t&&(e.asc=!0!==e.asc,e.no=c,n=!0,l.push(e))}):l=a,this.setLastSort(l),!n&&t&&this.setOrderBy(t,!0),this.runOrderbyOn(e),o={fixed:this.group(e,i,!0),full:e}}else if(t)this.setOrderBy(t,r),this.runOrderbyOn(e),o={fixed:e,full:e};else{const t=this.getOrderBy();this.resetSort(),this.setLastSort(t),this.runOrderbyOn(e),o={fixed:e,full:e}}return this.freeGrid.config.sortingSet=this.arraySort.getOrderBy(),o}getGrouping(){return this.arrayGrouping.getGrouping()}setGrouping(e){this.arrayGrouping.setGrouping(e)}getExpanded(){return this.arrayGrouping.getExpanded()}setExpanded(e){this.arrayGrouping.setExpanded(e)}groupCollapse(e){this.freeGrid.viewRows=this.arrayGrouping.collapseOneOrAll(e),this.freeGrid.config.groupingExpanded=this.arrayGrouping.getExpanded(),this.freeGrid.reRender()}groupExpand(e){this.freeGrid.viewRows=this.arrayGrouping.expandOneOrAll(e),this.freeGrid.config.groupingExpanded=this.arrayGrouping.getExpanded(),this.freeGrid.reRender()}getOrderBy(){return this.arraySort.getOrderBy()}setLastSort(e){this.arraySort.setLastSort(e)}setOrderBy(e,t){this.arraySort.setOrderBy(e,t)}runOrderbyOn(e){this.arraySort.runOrderbyOn(e)}resetSort(e){this.arraySort.reset(e)}resetGrouping(){this.arrayGrouping.reset()}getCurrentFilter(){return this.arrayFilter.getLastFilter()}group(e,t,r){const s=this.arrayGrouping.group(e,t,r);return this.freeGrid.config.groupingExpanded=this.arrayGrouping.getExpanded(),s}removeGroup(e){const t=this.getGrouping(),r=t.indexOf(e);if(-1!==r&&t.splice(r,1),t.length){const e=this.group(this.freeGrid.activeData,t,!0);this.freeGrid.viewRows=e}else this.freeGrid.viewRows=this.freeGrid.activeData;this.freeGrid.reRender()}groupingCallback(e,t,r){let s=!!t;const i=this.freeGrid.config.groupingSet||[];if(t&&i.forEach(e=>{e.field===t.attribute&&(s=!1)}),s&&i.push({title:t.header,field:t.attribute}),this.arraySort.clearConfigSort(r.config.columns),this.arraySort.reset(),i.forEach(e=>{this.arraySort.setOrderBy(e.field,!0)}),this.arraySort.runOrderbyOn(this.freeGrid.activeData),this.arraySort.SetConfigSort(r.config.columns),i.length){const e=this.group(this.freeGrid.activeData,i,!0);this.freeGrid.config.groupingSet=this.getGrouping(),this.freeGrid.config.sortingSet=this.getOrderBy(),this.freeGrid.viewRows=e}else this.freeGrid.viewRows=this.freeGrid.activeData;r.reRender()}sortCallback(e,t,r){const s=null===t.sortable.sortAscending||!t.sortable.sortAscending;this.arraySort.clearConfigSort(r.config.columns);const i=this.orderBy(r.activeData,{attribute:t.attribute,asc:s},e.shiftKey);this.freeGrid.config.sortingSet=this.getOrderBy(),this.arraySort.SetConfigSort(r.config.columns),this.freeGrid.viewRows=i.fixed,r.reRender()}filterCallback(e,t,r){switch(t.type){case"date":t.filterable.currentValue=new Date(e.target.valueAsDate);break;case"number":t.filterable.currentValue=e.target.valueAsNumber;break;case"boolean":t.filterable.currentValue=e.target.indeterminate?null:e.target.checked;break;default:t.filterable.currentValue=e.target.value}const s=[];r.config.columns.forEach(e=>{const t=e.filterable;t&&null!==t.currentValue&&void 0!==t.currentValue&&s.push({attribute:e.attribute,type:e.type||"text",operator:t.operator?this.arrayFilter.operators[t.operator]:this.arrayFilter.operators[this.arrayFilter.getFilterFromType(e.type)],value:t.currentValue})}),r.activeData=this.arrayFilter.runQueryOn(r.data,s);const i=this.orderBy(r.activeData,null,!1);this.arraySort.SetConfigSort(r.config.columns),this.freeGrid.viewRows=i.fixed,this.freeGrid.reRender()}}},$fsx.f[38]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});t.ArrayFilter=class{constructor(){this.operators={EQUAL:1,LESS_THAN_OR_EQUAL_TO:2,GREATER_THAN_OR_EQUAL_TO:3,LESS_THAN:4,GREATER_THAN:5,CONTAINS:6,NOT_EQUAL_TO:7,DOES_NOT_CONTAIN:8,BEGIN_WITH:9,END_WITH:10},this.lastFilter=[]}getLastFilter(){return this.lastFilter}getFilterFromType(e){switch(e){case"date":case"number":return"GREATER_THAN";case"bool":return"EQUAL_TO";default:return"BEGIN_WITH"}}runQueryOn(e,t){return this.lastFilter=t,e.filter(e=>{let r=!0;return t.forEach(t=>{let s,i,o,a=t.operator;const n=t.type,l={true:!0,false:!1};switch(n){case"number":s=e[t.attribute],(i=Number(t.value))||(i=0),6===(a=a||1)&&(a=1);break;case"string":s=null===e[t.attribute]||void 0===e[t.attribute]?"":e[t.attribute].toLowerCase(),i=t.value.toLowerCase(),o=a=a||9,"*"===t.value.charAt(0)&&9===a&&(o=6,i=i.substr(1,i.length)),"*"===t.value.charAt(0)&&1===a&&(o=10,i=i.substr(1,i.length)),"*"===t.value.charAt(t.value.length-1)&&1===a&&10===o&&(o=6,i=i.substr(0,i.length-1)),"*"===t.value.charAt(t.value.length-1)&&1===a&&10!==o&&6!==o&&(o=9,i=i.substr(0,i.length-1)),a!==o&&(a=o);break;case"boolean":s=e[t.attribute],i=l[t.value],a=1;break;default:try{s=e[t.attribute].toLowerCase()}catch(r){s=e[t.attribute]}try{i=t.value.toLowerCase()}catch(e){i=t.value}a=a||1}switch(a){case 1:s!==i&&(r=!1);break;case 2:s<=i||(r=!1);break;case 3:s>=i||(r=!1);break;case 4:s<i||(r=!1);break;case 5:s>i||(r=!1);break;case 6:-1===s.indexOf(i)&&(r=!1);break;case 7:s===i&&(r=!1);break;case 8:-1!==s.indexOf(i)&&(r=!1);break;case 9:s.substring(0,i.length)!==i&&(r=!1);break;case 10:s.substring(s.length-i.length,s.length)!==i&&(r=!1);break;default:s!==i&&(r=!1)}"string"===n&&"*"===t.value.charAt(0)&&1===t.value.length&&(r=!0)}),r})}}},$fsx.f[39]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});t.ArraySort=class{constructor(){this.lastSort=[],this.curSort=[],this.localeCompareCode=null,this.localeCompareOptions={sensitivity:"base"}}setLocaleCompare(e,t){this.localeCompareCode=e||null,this.localeCompareOptions=t||{sensitivity:"base"}}reset(e){e?(this.lastSort=[{attribute:e,asc:!0,no:0}],this.curSort=[{attribute:e,asc:!0,no:0}]):(this.lastSort=[],this.curSort=[])}SetConfigSort(e){const t=[],r=[],s=[];this.lastSort.forEach(e=>{t.push(e.attribute),r.push(e.asc),s.push(e.no)}),e.forEach(e=>{const i=t.indexOf(e.attribute);-1!==i?(e.sortable.sortAscending=!0===r[i],e.sortable.sortNo=s[i]):(e.sortable.sortAscending=null,e.sortable.sortNo=null)})}clearConfigSort(e){e.forEach(e=>{e.sortable&&(e.sortable.sortAscending=null,e.sortable.sortNo=null)})}setLastSort(e){this.lastSort=e,this.curSort=e}setOrderBy(e,t){if(Array.isArray(e))this.lastSort=e,this.curSort=e;else{let r;const s=!1;if(r="string"==typeof e?{attribute:e,asc:!0}:void 0===e.asc?{attribute:e.attribute,asc:!0}:{attribute:e.attribute,asc:e.asc},t&&this.lastSort.length>0){this.curSort=this.lastSort;let e=!1;this.curSort.forEach(t=>{t.attribute===r.attribute&&(e=!0,t.asc=r.asc)}),e||(this.curSort.push(r),this.curSort[this.curSort.length-1].no=this.curSort.length),this.lastSort=this.curSort}else this.curSort=[r],this.curSort[0].no=1,this.lastSort[0]&&this.lastSort[0].attribute===this.curSort[0].attribute&&this.lastSort[0].asc===this.curSort[0].asc&&(s||(this.curSort[0].asc=!0!==this.curSort[0].asc)),this.lastSort=this.curSort}}getOrderBy(){return this.curSort}runOrderbyOn(e){const t=this.getOrderBy();e.sort((e,r)=>{let s=0;for(let i=0;i<t.length&&0===s;++i){const o=t[i],a=e[o.attribute],n=r[o.attribute],l=(e,t)=>{let r=null;return r=this.localeCompareCode?e.localeCompare(t,this.localeCompareCode,this.localeCompareOptions):e.localeCompare(t)};a!==n&&(s=o.asc?"string"==typeof a&&"string"==typeof a?l(a,n)<0&&0!==l(a,n)?-1:1:a<n?-1:1:"string"==typeof a&&"string"==typeof a?l(a,n)<0&&0!==l(a,n)?1:-1:a<n?1:-1)}return s}),this.lastSort=this.getOrderBy().slice(0)}}},$fsx.f[40]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});t.ArrayGrouping=class{constructor(){this.grouping=[],this.expanded=new Set([])}reset(){this.groups=[],this.grouping=[],this.expanded=new Set([])}group(e,t,r){if(t.length>0){r||(this.expanded=new Set([]));const s=[];return t.forEach((t,r)=>{if(0===r){const i=this.createMainGrouping(e,t.field,r);s.push(i)}else{const e=s[s.length-1],i=this.groupChildren(e,t.field,r);s.push(i)}}),this.groups=s,this.grouping=t,r?this.expandOneOrAll(null,this.expanded):s[0]}return e.forEach(e=>{e.__groupLvl=0}),this.grouping=[],e}getExpanded(){return Array.from(this.expanded)}setExpanded(e){this.expanded=new Set(e)}getGrouping(){return this.grouping}setGrouping(e){this.grouping=e}expandOneOrAll(e,t){let r,s=!e;e||t&&(s=!1),t||(t=new Set([]));const i=[],o=this.groups[0];return r=o=>{o.__groupChildren.forEach(o=>{switch(i.push(o),!0){case s:case o.__groupID===e:case t.has(o.__groupID):case o.__groupID!==e&&o.__groupExpanded:o.__groupChildren&&(o.__groupExpanded=!0,this.expanded.add(o.__groupID),r(o))}})},o.forEach(o=>{switch(i.push(o),!0){case s:case o.__groupID===e:case t.has(o.__groupID):case o.__groupID!==e&&o.__groupExpanded:o.__groupExpanded=!0,this.expanded.add(o.__groupID),o.__groupChildren&&r(o)}}),i}collapseOneOrAll(e){const t=!e;let r;e=void 0===e?null:e;const s=[],i=this.groups[0];return r=i=>{i.__groupChildren.forEach(i=>{switch(!0){case t:i.__groupChildren&&(i.__groupExpanded=!1,this.expanded.delete(i.__groupID),r(i));break;case i.__groupID===e:s.push(i),this.expanded.delete(i.__groupID),i.__groupExpanded=!1;break;default:s.push(i),i.__groupChildren&&i.__groupExpanded&&r(i)}})},i.forEach(i=>{switch(s.push(i),!0){case t:i.__groupExpanded=!1,this.expanded.delete(i.__groupID),i.__groupChildren&&r(i);break;case i.__groupID===e:i.__groupExpanded=!1,this.expanded.delete(i.__groupID);break;default:i.__groupChildren&&i.__groupExpanded&&r(i)}}),s}createMainGrouping(e,t,r){const s=[];let i={},o=null;return e.forEach(e=>{let a=e[t];(a=(a="boolean"==typeof a?a.toString():a)||"blank")!==o?(i={__groupName:a||"blank",__group:!0,__groupID:a,__groupLvl:r,__groupChildren:[e],__groupTotal:1,__groupExpanded:!1},e.__groupLvl=r+1,o=a,s.push(i)):(e.__groupLvl=r+1,i.__groupChildren.push(e),i.__groupTotal++)}),s}groupChildren(e,t,r){const s=[];let i={};return e.forEach(e=>{let o=null;const a=[];e.__groupChildren.forEach(n=>{if(n[t]!==o){const l=n[t]||"blank",c=e.__groupID||"blank";i={__groupName:n[t],__groupID:c+"-"+l,__group:!0,__groupLvl:r,__groupChildren:[n],__groupTotal:1,__groupExpanded:!1},n.__groupLvl=r+1,o=n[t],a.push(i),s.push(i)}else n.__groupLvl=r+1,i.__groupChildren.push(n),i.__groupTotal++}),e.__groupChildren=a}),s}}},$fsx.f[48]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(45),i=$fsx.r(47);class o extends HTMLElement{constructor(){super(),this.data=[],this.dummyDataGenerator=new i.DummyDataGenerator,this.data=this.dummyDataGenerator.generateData(1e3),this.gridConfig=s.COL_SETUP}connectedCallback(){this.render()}replaceData(e){this.data=this.dummyDataGenerator.generateData(e),this.render()}clear(){this.gridConfig.groupingExpanded=[],this.gridConfig.sortingSet=[],this.gridConfig.groupingSet=[],this.getElementsByTagName("FREE-GRID")[0].manualConfigChange()}addData(e){this.data=this.data.concat(this.dummyDataGenerator.generateData(e)),this.render()}render(){r.render(r.html`
+                <free-grid
+                    class="free-grid"
+                    .data=${this.data}
+                    .config=${this.gridConfig}
+                >
+                </free-grid>
+            `,this)}}t.AppComponent=o,customElements.get("app-component")||customElements.define("app-component",o)},$fsx.f[45]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.COL_SETUP={rowHeight:60,panelHeight:0,headerHeight:0,footerHeight:0,selectionMode:"multiple",columns:[{header:"index",attribute:"index",type:"number",width:120,filterable:{},sortable:{}},{header:"First",attribute:"first",width:100,filterable:{},sortable:{},allowGrouping:!0},{header:"Last",attribute:"last",type:"text",width:100,filterable:{},sortable:{},allowGrouping:!0}]}},$fsx.f[47]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(46);t.DummyDataGenerator=class{constructor(){this.totalGenerated=0,this.internalDataArray=r.data,this.rowTop=0,this.first=[],this.last=[],this.images=[],this.color=[];for(let e=0;e<this.internalDataArray.length;e++)this.first.push(this.internalDataArray[e].first),this.last.push(this.internalDataArray[e].last),this.images.push(this.internalDataArray[e].image),this.color.push(this.internalDataArray[e].color)}reset(){this.totalGenerated=0}generateData(e){const t=[];for(let r=0;r<e;r++){this.totalGenerated++;const e=Math.floor(27*Math.random())+0,s=Math.floor(27*Math.random())+0,i=Math.floor(27*Math.random())+0,o=Math.floor(27*Math.random())+0,a=new Date((new Date).setDate((new Date).getDate()+(Math.floor(300*Math.random())+0)));t.push({index:this.totalGenerated,name:r%7==0?null:this.first[o]+" "+this.last[i],first:this.first[o],last:this.last[i],images:this.images[s],color:this.color[o],number:Math.floor(9e3*Math.random())+0,bool:!!(e%3),date:a})}return t}}},$fsx.f[46]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.data=[{first:"Isabel",last:"Conrad",image:"https://s3.amazonaws.com/uifaces/faces/twitter/enda/73.jpg",color:"rgb(76,120,108)"},{first:"Jocelyn",last:"Wooten",image:"https://s3.amazonaws.com/uifaces/faces/twitter/guillogo/73.jpg",color:"rgb(134,91,60)"},{first:"Valentine",last:"Meyer",image:"https://s3.amazonaws.com/uifaces/faces/twitter/iboldurev/73.jpg",color:"rgb(201,142,97)"},{first:"Silva",last:"Alexander",image:"https://s3.amazonaws.com/uifaces/faces/twitter/smalonso/73.jpg",color:"rgb(113,105,251)"},{first:"Hopkins",last:"Wong",image:"https://s3.amazonaws.com/uifaces/faces/twitter/taherrapee/73.jpg",color:"rgb(133,126,66)"},{first:"Harriet",last:"Sherman",image:"https://s3.amazonaws.com/uifaces/faces/twitter/ismailmayat/73.jpg",color:"rgb(195,89,110)"},{first:"Stacie",last:"Bartlett",image:"https://s3.amazonaws.com/uifaces/faces/twitter/carlyson/73.jpg",color:"rgb(164,84,221)"},{first:"Charlene",last:"Stevens",image:"https://s3.amazonaws.com/uifaces/faces/twitter/thewillbeard/73.jpg",color:"rgb(99,147,74)"},{first:"Reyes",last:"Hartman",image:"https://s3.amazonaws.com/uifaces/faces/twitter/tgormtx/73.jpg",color:"rgb(99,55,193)"},{first:"Alissa",last:"Duncan",image:"https://s3.amazonaws.com/uifaces/faces/twitter/andresenfredrik/73.jpg",color:"rgb(218,58,52)"},{first:"Christina",last:"Craft",image:"https://s3.amazonaws.com/uifaces/faces/twitter/mwarkentin/73.jpg",color:"rgb(181,253,141)"},{first:"Burt",last:"Landry",image:"https://s3.amazonaws.com/uifaces/faces/twitter/herkulano/73.jpg",color:"rgb(95,147,193)"},{first:"Baldwin",last:"Hammond",image:"https://s3.amazonaws.com/uifaces/faces/twitter/jonny_moon/73.jpg",color:"rgb(175,176,59)"},{first:"Laverne",last:"Hampton",image:"https://s3.amazonaws.com/uifaces/faces/twitter/alyssalowww/73.jpg",color:"rgb(225,78,134)"},{first:"Kirsten",last:"Chang",image:"https://s3.amazonaws.com/uifaces/faces/twitter/rafelorden/73.jpg",color:"rgb(118,83,134)"},{first:"Mercado",last:"Hancock",image:"https://s3.amazonaws.com/uifaces/faces/twitter/wim1k/73.jpg",color:"rgb(244,178,231)"},{first:"Obrien",last:"Bruce",image:"https://s3.amazonaws.com/uifaces/faces/twitter/rpeezy/73.jpg",color:"rgb(52,103,133)"},{first:"Pearl",last:"Moran",image:"https://s3.amazonaws.com/uifaces/faces/twitter/sectronov/73.jpg",color:"rgb(168,119,234)"},{first:"Underwood",last:"Barton",image:"https://s3.amazonaws.com/uifaces/faces/twitter/starburst1977/73.jpg",color:"rgb(112,197,153)"},{first:"Solomon",last:"Lloyd",image:"https://s3.amazonaws.com/uifaces/faces/twitter/mocabyte/73.jpg",color:"rgb(69,68,176)"},{first:"Lyons",last:"Stevenson",image:"https://s3.amazonaws.com/uifaces/faces/twitter/iamasifmirza/73.jpg",color:"rgb(178,99,182)"},{first:"Swanson",last:"Richardson",image:"https://s3.amazonaws.com/uifaces/faces/twitter/benoitboucart/73.jpg",color:"rgb(230,107,202)"},{first:"Aida",last:"Hurley",image:"https://s3.amazonaws.com/uifaces/faces/twitter/markwienands/73.jpg",color:"rgb(119,239,85)"},{first:"Mccormick",last:"Jensen",image:"https://s3.amazonaws.com/uifaces/faces/twitter/menghe/73.jpg",color:"rgb(204,198,130)"},{first:"Ramona",last:"Meyers",image:"https://s3.amazonaws.com/uifaces/faces/twitter/heyanata/73.jpg",color:"rgb(236,222,59)"},{first:"Sharp",last:"Lindsay",image:"https://s3.amazonaws.com/uifaces/faces/twitter/thibaut_re/73.jpg",color:"rgb(218,74,95)"},{first:"Dina",last:"Robbins",image:"https://s3.amazonaws.com/uifaces/faces/twitter/bluesix/73.jpg",expanded:!1,color:"rgb(158,62,57)"},{first:"Franco",last:"Carrillo",image:"https://s3.amazonaws.com/uifaces/faces/twitter/w8candice/73.jpg",color:"rgb(89,84,186)"},{first:"Guadalupe",last:"Odom",image:"https://s3.amazonaws.com/uifaces/faces/twitter/mbilderbach/73.jpg",color:"rgb(180,227,238)"}]},$fsx.r(49);
+//# sourceMappingURL=app.js.map
