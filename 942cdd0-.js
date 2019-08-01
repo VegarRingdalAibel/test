@@ -1,4 +1,4 @@
-$fsx.f[33]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(15),r=$fsx.r(16),o=$fsx.r(31),a=$fsx.r(18);r.registerCustomElement("settings-comp",class extends HTMLElement{constructor(){super(),this.errors=[],this.userService=r.getContext(o.UserService),this.sharedState=r.getContext(a.SharedState)}async update(){try{await this.userService.update(this.sharedState.currentUser),this.success="Updated successfully",setTimeout(()=>{this.success=null},1500)}catch(e){const t=await Promise.resolve(e);for(const e in t.errors)t.errors&&t.errors[e]&&this.errors.push(t.errors[e].map(t=>e+": "+t))}}get canSave(){return this.sharedState&&this.sharedState.currentUser&&this.sharedState.password===this.passwordConfirm}logout(){this.userService.purgeAuth(),location.hash="home"}render(){return s.html`
+$fsx.f[53]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(15),r=$fsx.r(16),o=$fsx.r(51),a=$fsx.r(18);r.registerCustomElement("settings-comp",class extends HTMLElement{constructor(){super(),this.errors=[],this.userService=r.getContext(o.UserService),this.sharedState=r.getContext(a.SharedState)}async update(){try{await this.userService.update(this.sharedState.currentUser),this.success="Updated successfully",this.render(),setTimeout(()=>{this.success=null,this.render()},1500)}catch(e){const t=await Promise.resolve(e);for(const e in t.errors)t.errors&&t.errors[e]&&this.errors.push(t.errors[e].map(t=>e+": "+t))}}get canSave(){return this.passwordConfirm?this.sharedState&&this.sharedState.currentUser&&this.passwordConfirm===this.password:this.sharedState&&this.sharedState.currentUser}logout(){this.userService.purgeAuth(),location.hash="home"}render(){return s.html`
                 <div class="settings-page">
                     <div class="container page">
                         <div class="row">
@@ -24,7 +24,7 @@ $fsx.f[33]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx
                                                 class="form-control"
                                                 type="text"
                                                 placeholder="URL of profile picture"
-                                                .value =${this.sharedState.currentUser.image}
+                                                .value=${this.sharedState.currentUser.image}
                                                 @input=${e=>{this.sharedState.currentUser.image=e.target.value,this.render()}}
                                             />
                                         </fieldset>
@@ -35,7 +35,7 @@ $fsx.f[33]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx
                                                 type="text"
                                                 placeholder="Your Name"
                                                 autocomplete="usename"
-                                                .value =${this.sharedState.currentUser.username}
+                                                .value=${this.sharedState.currentUser.username}
                                                 @input=${e=>{this.sharedState.currentUser.username=e.target.value,this.render()}}
                                             />
                                         </fieldset>
@@ -46,7 +46,7 @@ $fsx.f[33]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx
                                                 rows="8"
                                                 placeholder="Short bio about you"
                                                 autocomplete="bio"
-                                                .value =${this.sharedState.currentUser.bio}
+                                                .value=${this.sharedState.currentUser.bio}
                                                 @input=${e=>{this.sharedState.currentUser.bio=e.target.value,this.render()}}
                                             ></textarea>
                                         </fieldset>
@@ -67,7 +67,7 @@ $fsx.f[33]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx
                                                 type="password"
                                                 autocomplete="current-password"
                                                 placeholder="Password"
-                                                 @input=${e=>{this.password=e.target.value,this.render()}}
+                                                @input=${e=>{this.password=e.target.value,this.render()}}
                                             />
                                         </fieldset>
 
