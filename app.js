@@ -1,220 +1,324 @@
-$fsx.f[49]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0}),$fsx.r(42),$fsx.r(43),$fsx.r(44),$fsx.r(48),console.log("sample-v:",1)},$fsx.f[42]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);var s=$fsx.r(12);t.IGridConfig=s.IGridConfig;const i=$fsx.r(36),o=$fsx.r(37),a=$fsx.r(41);class n extends HTMLElement{constructor(){super(),this._DATASET_ALL=[],this._DATASET_FILTERED=[],this._DATASET_VIEW=[],this.rowCache=[],this.arrayUtils=new a.ArrayUtils(this),this.selection=new o.Selection(this)}set config(e){if(this._CONFIG=e,this.config){this.config.sortingSet&&this.arrayUtils.setOrderBy(this.config.sortingSet),this.config.groupingSet&&this.arrayUtils.setGrouping(this.config.groupingSet),this.config.groupingExpanded&&this.arrayUtils.setExpanded(this.config.groupingExpanded);const e=this.arrayUtils.orderBy(this.activeData,null,!1);this.arrayUtils.arraySort.SetConfigSort(this.config.columns),this.viewRows=e.fixed}}get config(){return this._CONFIG}set data(e){const t=this.data;if(e.forEach((t,r)=>{t&&!t.__fg_key?t.__fg_key=this.selection.getKey():e[r]||(e[r]={__fg_key:this.selection.getKey()})}),this._DATASET_ALL=Array.from(e,e=>Object.assign({},e)),this._DATASET_FILTERED=this._DATASET_ALL.slice(),this._DATASET_VIEW=this._DATASET_ALL.slice(),t.length!==this._DATASET_ALL.length){const e=this.getElementsByTagName("free-grid-body")[0];e&&(e.scrollTop=0),this.resetRowCache()}if(this.config){this.config.sortingSet&&this.arrayUtils.setOrderBy(this.config.sortingSet),this.config.groupingSet&&this.arrayUtils.setGrouping(this.config.groupingSet);const e=this.arrayUtils.orderBy(this.activeData,null,!1);this.arrayUtils.arraySort.SetConfigSort(this.config.columns),this.viewRows=e.fixed}this.render()}get data(){return this._DATASET_ALL}set activeData(e){this._DATASET_FILTERED=e}get activeData(){return this._DATASET_FILTERED}set viewRows(e){this._DATASET_VIEW=e}get viewRows(){return this._DATASET_VIEW}connectedCallback(){this.render()}reRender(e){requestAnimationFrame(()=>{this.config=e||this.config,this.render()})}manualConfigChange(){if(this.config){this.config.sortingSet&&this.arrayUtils.setOrderBy(this.config.sortingSet),this.config.groupingSet&&this.arrayUtils.setGrouping(this.config.groupingSet),this.config.groupingExpanded&&this.arrayUtils.setExpanded(this.config.groupingExpanded);const e=this.arrayUtils.orderBy(this.activeData,null,!1);this.arrayUtils.arraySort.SetConfigSort(this.config.columns),this.viewRows=e.fixed}this.reRender()}render(){this.config?r.render(r.html`
-                    ${i.gridTemplate(this,this.rowCache)}
-                `,this):this.isConnected&&(console.error("no config set"),r.render(r.html``,this))}resetRowCache(){const e=this._DATASET_VIEW.length>40?40:this._DATASET_VIEW.length;this.rowCache=[];for(let t=0;t<e;t++)this.rowCache.push({i:t})}}t.FreeGrid=n,customElements.get("free-grid")||customElements.define("free-grid",n)},$fsx.f[12]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0})},$fsx.f[36]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(13),i=$fsx.r(16),o=$fsx.r(24),a=$fsx.r(34),n=$fsx.r(35);t.gridTemplate=(e,t)=>{const l=s.scrollEvent(e,t);return r.html`
-        ${i.panelElement(e)} ${o.headerElement(e)} ${a.bodyElement(l,e,t)}
-        ${n.footerElement(e)}
-    `}},$fsx.f[13]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.scrollEvent=function(e,t){return r=>{if(e.config.scrollLeft!==r.target.scrollLeft)e.config.scrollLeft=r.target.scrollLeft,e.reRender();else{window.focus(),document.activeElement&&document.activeElement.blur();const s=e.config.rowHeight||25,i=t.length,o=e.viewRows.length,a=s*i,n=r.target.clientHeight,l=r.target.scrollTop,c=e.config.lastScrollTop;let d=!0;l<c&&(d=!1);let h=!1;Math.abs(l-c)>100&&(h=!0),e.config.lastScrollTop=l;let u=Math.floor(l/s);if(h)for(let e=0;e<i;e++)t[e].i=u,u++;else{for(let e=0;e<i;e++){const r=t[e].i*s;let i,c=!1;d?r<l-s&&(c=!0,i=r+a,u=(r+a)/s):r>l+n&&(c=!0,i=r-a,u=(r-a)/s),!0===c&&u>=0&&u<=o&&(t[e].i=i/s)}t.sort()}e.render()}}}},$fsx.f[16]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14),i=$fsx.r(15);t.panelElement=function(e){const t=e.config.groupingSet||[],o=i.columnDragDropPanel("enter",e),a=i.columnDragDropPanel("leave",e);return r.html`
-        <free-grid-panel
-            @custom-1=${s.eventIF(!0,"mouseleave",a)}
-            @custom-2=${s.eventIF(!0,"mouseenter",o)}
-            style="height:${e.config.panelHeight}px"
-            class="free-grid-panel"
-        >
-            ${t.map(t=>r.html`
-                    <div @mouseenter=${e=>{e.target.getElementsByClassName("free-grid-icon")[0].classList.remove("free-grid-iconhidden")}} @mouseleave=${e=>{e.target.getElementsByClassName("free-grid-icon")[0].classList.add("free-grid-iconhidden")}} class="free-grid-grouping-panel-container">
-                        <p class="free-grid-grouping-panel-p">
-                            ${t.title||t.field}
-                            <i>
-                                <svg
-                                    @click=${()=>{e.arrayUtils.removeGroupBinded(t)}}
-                                    class="free-grid-icon free-grid-iconhidden"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 16 16"
-                                >
-                                    ${r.svg`<path d="M3 4l4.3 4L3 12h1.4L8 8.7l3.5 3.3H13L8.6 8 13 4h-1.5L8 7.3 4.4 4H3z"/>`}
-                                </svg></i
-                            >
-                        </p>
+$fsx.f[42]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0}),$fsx.r(1),$fsx.r(38),$fsx.r(41)},$fsx.f[38]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(4),i=$fsx.r(16);s.getRouter().registerRouteChangeHandler((e,t)=>{i.getContext(i.EventAggregator).publish("routeChange",{options:e,activeRouter:t})}),s.getRouter().addRouterConfig("main",[{path:"",load:()=>Promise.resolve().then(()=>$fsx.r(28)),componentName:"home-comp",name:"Home",isNav:!1},{path:"home",componentName:"home-comp",load:()=>Promise.resolve().then(()=>$fsx.r(28)),name:"Home"},{path:"profile/:name",componentName:"profile-comp",load:()=>Promise.resolve().then(()=>$fsx.r(30)),name:"Profile",children:!0},{path:"login",componentName:"auth-comp",load:()=>Promise.resolve().then(()=>$fsx.r(32)),name:"Login"},{path:"register",componentName:"Auth-comp",load:()=>Promise.resolve().then(()=>$fsx.r(32)),name:"Register"},{path:"settings",componentName:"Settings-comp",load:()=>Promise.resolve().then(()=>$fsx.r(33)),name:"Settings"},{path:"editor",componentName:"Editor-comp",load:()=>Promise.resolve().then(()=>$fsx.r(34)),name:"Editor"},{path:"editor/:slug",componentName:"Editor-comp",load:()=>Promise.resolve().then(()=>$fsx.r(34)),name:"Editor"},{path:"article/:slug",componentName:"Article-comp",load:()=>Promise.resolve().then(()=>$fsx.r(35)),name:"Erticle"}]),s.getRouter().addRouterConfig("subProfile",[{path:"profile/:name",componentName:"profile-article-route",load:()=>Promise.resolve().then(()=>$fsx.r(36)),name:"MyPosts"},{path:"profile/:name/favorites",componentName:"profile-favorites-route",load:()=>Promise.resolve().then(()=>$fsx.r(37)),name:"Favorites"}])},$fsx.f[16]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(15);t.registerCustomElement=(e,t)=>{if(customElements.get(e))console.log("element already registered");else{const i=t.prototype.render,r=t.prototype.connectedCallback,a=t.prototype.disconnectedCallback,o=t.prototype.updated;t.prototype.render=function(...e){s.render(i.call(this,...e),this,{eventContext:this}),o&&o()},t.prototype.connectedCallback=function(){r&&r.call(this),this.haltUpdate||this.render()},t.prototype.disconnectedCallback=function(){a&&a.call(this)},customElements.define(e,t)}};const i=new Map;t.getContext=e=>{if(i.has(e))return i.get(e);{const t=new e;return i.set(e,t),t}};t.EventAggregator=class{constructor(){this.channels={}}publish(e,...t){if(Array.isArray(this.channels[e]))for(let s=0,i=this.channels[e].length;s<i;s++)this.channels[e][s].func.apply(this,t)}unsubscribe(e,t){if(Array.isArray(this.channels[e]))for(let s=0,i=this.channels[e].length;s<i;s++)this.channels[e][s].ctx===t&&this.channels[e].splice(s,1)}subscribe(e,t,s){Array.isArray(this.channels[e])||(this.channels[e]=[]),this.channels[e].push({ctx:t,func:s})}};t.FetchClient=class{constructor(e={}){this.config=e,this.setConfig(e)}setConfig(e){e.defaultUrl&&(this.config.defaultUrl=e.defaultUrl),e.cache&&(this.config.cache=e.cache),e.credentials&&(this.config.credentials=e.credentials),e.headers&&(this.config.headers=e.headers),e.method&&(this.config.method=e.method),e.mode&&(this.config.mode=e.mode),e.redirect&&(this.config.redirect=e.redirect),e.referrer&&(this.config.referrer=e.referrer)}getConfig(){return this.config}fetch(e,t){const s=this.config.defaultUrl?this.config.defaultUrl+e:e,i={body:t.body?t.body:void 0,cache:t.cache||this.config.cache,credentials:t.credentials||this.config.credentials,headers:t.headers||this.config.headers,method:t.method||this.config.method,mode:t.mode||this.config.mode,redirect:t.redirect||this.config.redirect,referrer:t.referrer||this.config.referrer};return fetch(s,i)}}},$fsx.f[28]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(15),i=$fsx.r(16),r=$fsx.r(18),a=$fsx.r(24),o=$fsx.r(25);$fsx.r(27),i.registerCustomElement("home-comp",class extends HTMLElement{constructor(){super(...arguments),this.articles=[],this.shownList="all",this.tags=[],this.filterTag=void 0,this.currentPage=1,this.limit=10}connectedCallback(){this.sharedState=i.getContext(r.SharedState),this.tagService=i.getContext(a.TagService),this.articleService=i.getContext(o.ArticleService),this.eventAggregator=i.getContext(i.EventAggregator),this.getArticles(),this.getTags()}async getArticles(){const e={limit:this.limit,offset:this.limit*(this.currentPage-1)};void 0!==this.filterTag&&(e.tag=this.filterTag);const t=await this.articleService.getList(this.shownList,e);this.articles.splice(0,this.tags.length),this.articles.push(...t.articles),this.totalPages=Array.from(new Array(Math.ceil(t.articlesCount/this.limit)),(e,t)=>t+1),this.render()}async getTags(){const e=await this.tagService.getList();this.tags.splice(0,this.tags.length),this.tags.push(...e),this.render()}setListTo(e,t){("feed"!==e||this.sharedState.isAuthenticated)&&(t!==this.filterTag&&(this.currentPage=1),this.shownList=e,this.filterTag=t,this.getArticles())}setPageTo(e){this.currentPage=e,this.getArticles()}render(){return s.html`
+                <div class="home-page">
+                    <div class="banner">
+                        <div class="container">
+                            <h1 class="logo-font">conduit</h1>
+                            <p>A place to share your knowledge.</p>
+                        </div>
                     </div>
-                `)}
-        </free-grid-panel>
-    `}},$fsx.f[14]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=new WeakMap;t.eventIF=r.directive((e,t,i)=>o=>{const a=s.get(o);if(void 0===a){const a=new class{constructor(e,t,s,i){if(!(e instanceof r.EventPart&&"custom"===e.eventName.substr(0,6)))throw new Error('myListDirective can only be used on "@custom" eventName');this.part=e,this.arg=t,this.event=s,this.caller=i,this.handlerBinded=this.handler.bind(this),t&&e.element.addEventListener(s,this.handlerBinded)}handler(e){this.caller(e)}update(e,t,r){this.part=o,this.caller=r,this.arg&&e?this.event!==t&&(this.part.element.removeEventLister(this.event,this.handlerBinded),this.event=t,this.part.element.addEventListener(t,this.handlerBinded)):(this.arg&&!e&&(this.part.element.removeEventLister(this.event,this.handlerBinded),this.event=t),!this.arg&&e&&(this.event=t,this.part.element.addEventListener(t,this.handlerBinded)))}}(o,e,t,i);s.set(o,a)}else a.update(e,t,i)})},$fsx.f[15]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});let r=null,s=null,i=null,o=null,a=null;t.columnDragDropPanel=(e,t)=>{const s=e=>{e.target.removeEventListener("mouseup",s),t.config.columns[r].allowGrouping&&t.arrayUtils.groupingCallbackBinded(e,t.config.columns[r],t),e.target.classList.remove("free-grid-candrop")};return i=>{"enter"===e&&r&&(i.target.addEventListener("mouseup",s),t.config.columns[r].allowGrouping&&i.target.classList.add("free-grid-candrop")),"leave"===e&&r&&(i.target.removeEventListener("mouseup",s),i.target.classList.remove("free-grid-candrop"))}},t.columnDragDrop=(e,t,n,l)=>{const c=function(){document.removeEventListener("mouseup",c),document.removeEventListener("mousemove",d),clearTimeout(a),r=null,s=null,o=null,i&&document.body.removeChild(i),i=null},d=function(e){if(i.style.top=e.clientY+document.documentElement.scrollTop+"px",i.style.left=e.clientX+document.documentElement.scrollLeft+"px",null!==s&&r!==s){const t=o,i=e.clientX+document.documentElement.scrollLeft;if(i+15>t.center&&i-15<t.center){const e=l.config.columns,t=e[r];e[r]=e[s],e[s]=t,r=s,s=null,l.reRender()}}};return l=>{"dragstart"===e&&0===l.button&&"P"===l.target.tagName&&(document.addEventListener("mouseup",c),r=n,a=setTimeout(()=>{(i=document.createElement("div")).style.top="-1200px",i.style.left="-1200px",i.classList.add("free-grid"),i.classList.add("free-grid-drag"),i.textContent=t.header,document.body.appendChild(i),document.addEventListener("mousemove",d)},500)),"enter"===e&&null!==r&&r!==n&&(s=n,o=function(e,t){const r=e.getBoundingClientRect(),s=window.pageXOffset||document.documentElement.scrollLeft,i=window.pageYOffset||document.documentElement.scrollTop;return{top:r.top+i,left:r.left+s,center:r.left+t/2+s}}(l.target,t.width||100))}}},$fsx.f[24]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(23);t.headerElement=function(e){const t=`left:${void 0!==e.config.scrollLeft?-e.config.scrollLeft:0}px;\n                   top:${e.config.panelHeight}px;\n                   height:${e.config.headerHeight}px;\n                   width:${e.config.columns.map(e=>e.width||100).reduce((e,t)=>e+t)+25}px`,i=e.config;return i.headerRenderCallBackFn?r.html`
-              <free-grid-header style=${t} class="free-grid-header">
-                  ${i.headerRenderCallBackFn(r.html,null,null,null,e)}
-              </free-grid-header>
-          `:r.html`
-              <free-grid-header style=${t} class="free-grid-header">
-                  ${s.headerColumnElements(e)}
-              </free-grid-header>
-          `}},$fsx.f[23]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(17),i=$fsx.r(22),o=$fsx.r(15),a=$fsx.r(14);t.headerColumnElements=function(e){const t=e.config.groupingSet&&e.config.groupingSet.length;let n=t?15*t:0;return e.config.columns.map((l,c)=>{if(l.hide)return r.html``;{const d=`width:${l.width||100}px;left:${n}px`,h=o.columnDragDrop("dragstart",l,c,e),u=o.columnDragDrop("enter",l,c,e),g=r.html`
-                ${r.html`
-                    <free-grid-col
-                        class="free-grid-col free-grid-grouping-row"
-                        style="width:${t?15*t:0}px;left:0"
-                    >
-                    </free-grid-col>
-                `}
-                <free-grid-header-col
-                    style=${d}
-                    class="free-grid-col ${l.disableDragDrop?"":"free-grid-dragHandle"}"
-                    config-column=${c}
-                    @custom-1=${a.eventIF(!l.disableDragDrop,"mousedown",h)}
-                    @custom-2=${a.eventIF(!l.disableDragDrop,"mouseenter",u)}
-                >
-                    ${i.headerColumContent(e,l)} ${s.resizeColumnElement(e,l)}
-                </free-grid-header-col>
-            `;return n+=l.width||100,g}})}},$fsx.f[17]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);t.resizeColumnElement=function(e,t){let s=null;const i=t.width,o=r=>{if(r.preventDefault(),s&&Math.abs(s-r.screenX)%2==0){const o=s-r.screenX,a=i-o;t.width=a>10?a:10,requestAnimationFrame(()=>{e.reRender()})}},a=()=>{document.removeEventListener("mousemove",o),document.removeEventListener("mouseup",a)};return r.html`
-        <div class="free-grid-draggable-handler" @mousedown=${e=>{s=e.screenX,document.addEventListener("mousemove",o),document.addEventListener("mouseup",a)}}></div>
-    `}},$fsx.f[22]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(20),s=$fsx.r(21),i=$fsx.r(11);t.headerColumContent=function(e,t){const o=r=>{t.sortable.beforeSortCallbackFn&&t.sortable.beforeSortCallbackFn(r,t,e),!1!==t.sortable.auto&&e.arrayUtils.sortCallbackBinded(r,t,e)},a=r=>{0===r.button?(r.target.addEventListener("mouseup",o),setTimeout(()=>{r.target.removeEventListener("mouseup",o)},500)):t.allowGrouping&&e.arrayUtils.groupingCallbackBinded(r,t,e)};return t.headerRenderCallBackFn?t.headerRenderCallBackFn(i.html,t,null,null,e):t.filterable?r.headerWithFilterElements(t,e,a,t.filterable.filterOverLabel):s.headerWithoutFilterElement(t,e,a)}},$fsx.f[20]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(18),i=$fsx.r(14),o=$fsx.r(19);t.headerWithFilterElements=function(e,t,a,n){const l=`free-grid-label-${n?"top":"bottom"}`,c=e.headerRenderLabelCallBackFn?e.headerRenderLabelCallBackFn(r.html,e,null,null,t):r.html`
-              <p class=${l} @custom=${i.eventIF(e.sortable,"mousedown",a)} oncontextmenu="return false;">
-                  ${e.header||""} ${s.sorticonElement(t,e)}
-              </p>
-          `,d=r.html`
-        ${o.filterInputElement(e,t,e.filterable.filterOverLabel)}
-    `;return n?r.html`
-            ${d}${c}
-        `:r.html`
-            ${c}${d}
-        `}},$fsx.f[18]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);t.sorticonElement=function(e,t){const s=r.svg`
-        <svg class="free-grid-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-            <path d="M7.4 6L3 10h1.5L8 7l3.4 3H13L8.5 6h-1z"/>
-        </svg>`,i=r.svg`
-        <svg class="free-grid-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-            <path d="M7.4 10L3 6h1.5L8 9.2 11.3 6H13l-4.5 4h-1z"/>
-        </svg>`;return t.sortable&&t.sortable.sortNo?r.html`
-            <i class="free-grid-fa-sort-number" data-vgridsort="${t.sortable.sortNo}">
-                ${t.sortable.sortAscending?s:i}
-            </i>
-        `:r.html``}},$fsx.f[19]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14);t.filterInputElement=function(e,t,i){const o=e.filterable.currentValue||null,a=e.filterable.placeholder||"";let n;n="boolean"===e.type?"free-grid-row-checkbox-50":i?"free-grid-header-input-top":"free-grid-header-input-bottom";const l="boolean"===e.type?"checkbox":e.type,c=r=>{if("boolean"===e.type){const e=r.target;switch(e.state){case 0:e.state=2,e.style.opacity="1",e.checked=!0,e.indeterminate=!1;break;case 2:e.state=3,e.style.opacity="1",e.indeterminate=!1;break;default:e.checked=!1,e.state=0,e.style.opacity="0.3",e.indeterminate=!0}}e.filterable.beforeFilterCallbackFn&&e.filterable.beforeFilterCallbackFn(r,e,t),!1!==e.filterable.auto&&t.arrayUtils.filterCallbackBinded(r,e,t)};let d=null,h=!1,u=0;return"boolean"===e.type&&e.filterable&&(!1!==e.filterable.currentValue&&!0!==e.filterable.currentValue?(d="opacity:0.3",h=!0,u=0):u=e.filterable.currentValue?2:3),e.headerRenderInputCallBackFn?e.headerRenderInputCallBackFn(r.html,e,null,null,t):r.html`
-              <input
-                  type=${l}
-                  style=${d}
-                  .indeterminate=${h}
-                  .state=${u}
-                  class=${n}
-                  @custom=${s.eventIF(!0,e.filterable.filterTrigger||"change",c)}
-                  @custom-keydown=${s.eventIF(!0,"keydown",e=>{13===(e.keyCode?e.keyCode:e.which)&&c(e)})}
-                  .value=${o}
-                  placeholder=${a}
-              />
-          `}},$fsx.f[21]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14),i=$fsx.r(18);t.headerWithoutFilterElement=function(e,t,o){return e.headerRenderLabelCallBackFn?e.headerRenderLabelCallBackFn(r.html,e,null,null,t):r.html`
-              <p
-                  class="free-grid-label-full"
-                  @custom=${s.eventIF(e.sortable,"mousedown",o)}
-                  oncontextmenu="return false;"
-              >
-                  ${e.header||""} ${i.sorticonElement(t,e)}
-              </p>
-          `}},$fsx.f[34]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(33);t.bodyElement=function(e,t,i){const o=`\n            top:${t.config.panelHeight+t.config.headerHeight}px;\n            bottom:${t.config.footerHeight}px`,a=`\n            height:${(t.viewRows.length||0)*t.config.rowHeight}px;\n            width:${t.config.columns.map(e=>e.width||100).reduce((e,t)=>e+t)}px`;return r.html`
-        <free-grid-body @scroll=${e} style=${o} class="free-grid-body">
-            <free-grid-body-content style=${a} class="free-grid-content">
-                ${i.map(e=>s.rowElement(t,t.viewRows[e.i],e))}
-            </free-grid-body-content>
-        </free-grid-body>
-    `}},$fsx.f[33]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(25),s=$fsx.r(31),i=$fsx.r(32);t.rowElement=function(e,t,o){const a=`\n        display:${t?"block":"none"};\n        height:${e.config.rowHeight}px;\n        transform:translate3d(0px, ${e.config.rowHeight*o.i}px, 0px);\n        width:${e.config.columns.map(e=>e.width||100).reduce((e,t)=>e+t)}px`,n=t=>{e.config.beforeSelectionChangeCallBackFn&&e.config.beforeSelectionChangeCallBackFn(t,o.i,e),e.selection.highlightRow(t,o.i,e),e.config.afterSelectionChangeCallBackFn&&e.config.beforeSelectionChangeCallBackFn(t,o.i,e)};switch(!0){case"function"==typeof e.config.rowRenderCallBackFn:return r.rowElementsCustomRender(a,n,e,o.i,t);case t&&t.__group:return i.rowElementsGroupRender(a,n,e,o.i,t);default:return s.rowElementsStandardRender(a,n,e,o.i,t)}}},$fsx.f[25]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);t.rowElementsCustomRender=function(e,t,s,i,o){return r.html`
-        <free-grid-row
-            style=${e}
-            class="free-grid-row ${s.selection.isSelected(i)?"free-grid-selected-row":""}"
-            @click=${t}
-        >
-            ${s.config.rowRenderCallBackFn(r.html,null,i,o,s)}
-        </free-grid-row>
-    `}},$fsx.f[31]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(26),i=$fsx.r(27),o=$fsx.r(28),a=$fsx.r(29),n=$fsx.r(30);t.rowElementsStandardRender=function(e,t,l,c,d){const h=l.config.groupingSet&&l.config.groupingSet.length;let u=d&&h?15*d.__groupLvl:0;return r.html`
-        <free-grid-row
-            style=${e}
-            class="free-grid-row ${l.selection.isSelected(c)?"free-grid-selected-row":""}"
-            @click=${t}
-        >
-            <!-- ------------------------------ -->
-            <!-- We now get row based on config -->
-            <!-- ------------------------------ -->
-            ${r.html`
-                <free-grid-col
-                    class="free-grid-col free-grid-grouping-row"
-                    style="width:${d&&h?15*d.__groupLvl:0}px;left:0"
-                >
-                </free-grid-col>
-            `}
-            ${l.config.columns.map(e=>{if(e.hide)return r.html``;{const t=`width:${e.width||100}px; left:${u}px`,h=d?d[e.attribute]:"",g=t=>{if(e.beforeEditCallbackFn&&e.beforeEditCallbackFn(t,e,c,d,l),!1!==e.autoUpdateData)switch(e.type){case"boolean":d[e.attribute]=t.target.checked;break;case"image":break;case"date":d[e.attribute]=t.target.valueAsDate;break;case"number":d[e.attribute]=t.target.valueAsNumber;break;default:d[e.attribute]=t.target.value}e.afterEditCallbackFn&&e.afterEditCallbackFn(t,e,c,d,l)};let f;if(e.rowRenderCallBackFn)f=r.html`
-                            <free-grid-row-col style=${t} class="free-grid-col">
-                                ${e.rowRenderCallBackFn(r.html,e,c,d,l)}
-                            </free-grid-row-col>
-                        `;else switch(e.type){case"boolean":f=i.rowCheckboxColumnElement(t,e,g,h);break;case"image":f=a.rowImageColumnElement(t,h);break;case"date":f=n.rowDateColumnElement(t,e,g,h);break;case"number":f=o.rowNumberColumnElement(t,e,g,h);break;default:f=s.rowTextColumnElement(t,e,g,h)}return u+=e.width||100,f}})}
-        </free-grid-row>
-    `}},$fsx.f[26]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14);t.rowTextColumnElement=function(e,t,i,o){return r.html`
-        <free-grid-row-col style=${e} class="free-grid-col">
-            <input
-                ?readonly=${t.readonly}
-                ?disabled=${t.disabled}
-                @custom=${s.eventIF(!0,t.editEventType||"change",i)}
-                type="${t.type||"text"}"
-                .value=${o}
-                class="free-grid-row-input"
+
+                    <div class="container page">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="feed-toggle">
+                                    <ul class="nav nav-pills outline-active">
+                                        <li class="nav-item">
+                                            <a
+                                                class=" nav-link ${this.sharedState.isAuthenticated?"":"disabled"} 
+                                                ${"feed"===this.shownList?" active":""}"
+                                                @click=${()=>this.setListTo("feed")}
+                                                >Your Feed</a
+                                            >
+                                        </li>
+                                        <li class="nav-item">
+                                            <a
+                                                class="nav-link ${this.filterTag||"all"!==this.shownList?"":"active"}"
+                                                @click=${()=>this.setListTo("all")}
+                                                >Global Feed</a
+                                            >
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ${this.filterTag?"active":""}"
+                                                >${this.filterTag?"#"+this.filterTag:""}</a
+                                            >
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <article-list
+                                    .articles=${this.articles}
+                                    .totalPages=${this.totalPages}
+                                    .currentPage=${this.currentPage}
+                                    set-page-cb.trigger="setPageTo($event.detail)"
+                                ></article-list>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="sidebar">
+                                    <p>Popular Tags</p>
+
+                                    <div class="tag-list">
+                                        ${this.tags.map(e=>s.html`
+                                                <a class="tag-pill tag-default" click.delegate="setListTo('all', tag)">${e}</a>
+                                            `)}
+                                        ${0===this.tags.length?s.html`
+                                                <div>No tags are here... yet.</div>
+                                            `:""} 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `}})},$fsx.f[18]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(17);t.SharedState=class{constructor(){this.setState()}resetState(){this.currentUser=new s.User,this.isAuthenticated=!1}setState(){if(window.localStorage.jwtToken){const e=window.localStorage[window.localStorage.jwtToken+"currentUser"];e?(this.currentUser=new s.User(JSON.parse(e)),this.isAuthenticated=!0):(this.currentUser=new s.User,this.isAuthenticated=!1)}}saveState(e){e&&(window.localStorage[window.localStorage.jwtToken+"currentUser"]=JSON.stringify(e))}}},$fsx.f[17]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});t.User=class{constructor(e){this.email=e?e.email:"",this.token=e?e.token:"",this.username=e?e.username:"",this.bio=e?e.bio:"",this.image=e?e.image:""}}},$fsx.f[24]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(23),i=$fsx.r(16);t.TagService=class{constructor(){this.apiService=i.getContext(s.ApiService)}async getList(){return(await this.apiService.get("/tags")).tags}}},$fsx.f[23]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(19),i=$fsx.r(20),r=$fsx.r(21),a=$fsx.r(16),o=$fsx.r(22);t.ApiService=class{constructor(){this.jwtService=a.getContext(i.JwtService),this.http=new a.FetchClient}setHeaders(){const e={"Content-Type":"application/json",Accept:"application/json"};return this.jwtService.getToken()&&(e.Authorization=`Token ${this.jwtService.getToken()}`),new Headers(e)}async get(e,t){const i={method:"GET",headers:this.setHeaders()};try{const a=await this.http.fetch(`${s.config.api_url}${e}?${o.urlqueryStringify(t)}`,i);return r.status(a)}catch(e){return r.parseError(e)}}async put(e,t={}){const i={method:"PUT",headers:this.setHeaders(),body:JSON.stringify(t)};try{const t=await this.http.fetch(`${s.config.api_url}${e}`,i);return r.status(t)}catch(e){return await r.parseError(e)}}async post(e,t={}){const i={method:"POST",headers:this.setHeaders(),body:JSON.stringify(t)};try{const t=await this.http.fetch(`${s.config.api_url}${e}`,i);return r.status(t)}catch(e){return await r.parseError(e)}}async delete(e){const t={method:"DELETE",headers:this.setHeaders()};try{const i=await this.http.fetch(`${s.config.api_url}${e}`,t);return r.status(i)}catch(e){return await r.parseError(e)}}}},$fsx.f[19]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.config={api_url:"https://conduit.productionready.io/api"}},$fsx.f[20]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});t.JwtService=class{getToken(){return window.localStorage.jwtToken}saveToken(e){window.localStorage.jwtToken=e}destroyToken(){window.localStorage.removeItem("jwtToken")}}},$fsx.f[21]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.status=function(e){if(e.status>=200&&e.status<400)return e.json();throw e},t.parseError=function(e){return e instanceof Error?Promise.resolve(null):new Promise((t,s)=>s(e.json()))}},$fsx.f[22]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=Object.prototype.hasOwnProperty;function i(e){return decodeURIComponent(e.replace(/\+/g," "))}t.urlQueryParse=function(e){const t=/([^=?&]+)=?([^&]*)/g,s={};let r;for(;r=t.exec(e);s[i(r[1])]=i(r[2]));return s},t.urlqueryStringify=function(e,t){const i=[];"string"!=typeof(t=t||"")&&(t="?");for(const t in e)s.call(e,t)&&i.push(encodeURIComponent(t)+"="+encodeURIComponent(e[t]));return i.length?t+i.join("&"):""}},$fsx.f[25]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(23),i=$fsx.r(16);t.ArticleService=class{constructor(){this.apiService=i.getContext(s.ApiService)}async getList(e,t){return await this.apiService.get("/articles"+("feed"===e?"/feed":""),t)}async get(e){return(await this.apiService.get("/articles/"+e)).article}async destroy(e){return await this.apiService.delete("/articles/"+e)}async save(e){return e.slug?(await this.apiService.put("/articles/"+e.slug,{article:e})).article:(await this.apiService.post("/articles/",{article:e})).article}async favorite(e){return await this.apiService.post("/articles/"+e+"/favorite")}async unfavorite(e){return await this.apiService.delete("/articles/"+e+"/favorite")}}},$fsx.f[27]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(15),i=$fsx.r(16);$fsx.r(26),i.registerCustomElement("article-list",class extends HTMLElement{constructor(){super(...arguments),this._articles=[],this._totalPages=[]}set articles(e){this._articles=e||[],this.render()}get articles(){return this._articles}set totalPages(e){this._totalPages=e||[],this.render()}get totalPages(){return this._totalPages}render(){return s.html`
+                ${0===this.articles.length?s.html`
+                          <div class="article-preview">
+                              No articles are here... yet.
+                          </div>
+                      `:""}
+
+                <!--  if we have articles -->
+                ${this.articles.map(e=>s.html`
+                        <article-preview .article=${e}></article-preview>
+                    `)}
+
+                <!--  all the buttons -->
+                ${this.totalPages.length?s.html`
+                          <nav>
+                              <ul class="pagination">
+                                  ${this.totalPages.map(e=>s.html`
+                                          <li
+                                              class="page-item ${e===this.currentPage?"active":""}"
+                                              click.delegate="setPageCb($pageNumber)"
+                                          >
+                                              <a class="page-link">${e}</a>
+                                          </li>
+                                      `)}
+                              </ul>
+                          </nav>
+                      `:""}
+            `}})},$fsx.f[26]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(15),i=$fsx.r(16),r=$fsx.r(25),a=$fsx.r(18),o=$fsx.r(4);i.registerCustomElement("article-preview",class extends HTMLElement{constructor(){super(),this.articleService=i.getContext(r.ArticleService),this.sharedState=i.getContext(a.SharedState)}async onToggleFavorited(){this.sharedState.isAuthenticated?(this.article.favorited=!this.article.favorited,this.article.favorited?(this.article.favoritesCount++,await this.articleService.favorite(this.article.slug)):(this.article.favoritesCount--,await this.articleService.unfavorite(this.article.slug)),this.render()):o.getRouter().goto(o.getRouter().getNavLink("login","main").href)}render(){return s.html`
+                <div class="article-preview">
+                    <div class="article-meta">
+                        <a href="${"#"+this.article.author.username}">
+                            <img alt="profile-picture" src=${this.article.author.image?this.article.author.image:""} />
+                        </a>
+
+                        <div class="info">
+                            <a href="${"#profile/"+this.article.author.username}" class="author">
+                                ${this.article.author.username}</a
+                            >
+                            <span class="date">${this.article.createdAt}</span>
+                        </div>
+
+                        <button
+                            class="btn btn-sm pull-xs-right ${this.article.favorited?"btn-primary":"btn-outline-primary"}"
+                            @click=${this.onToggleFavorited}
+                        >
+                            <i class="ion-heart"></i> ${this.article.favoritesCount}
+                        </button>
+                    </div>
+
+                    <a href="${this.article.slug?"#article/"+this.article.slug:"#article"}" class="preview-link">
+                        <h1>${this.article.title}</h1>
+                        <p>${this.article.description}</p>
+                        <span>Read more...</span>
+
+                        <ul class="tag-list">
+                            ${this.article.tagList.map(e=>{s.html`
+                                    <li class="tag-default tag-pill tag-outline">${e}</li>
+                                `})}
+                        </ul>
+                    </a>
+                </div>
+            `}})},$fsx.f[32]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(15),i=$fsx.r(16),r=$fsx.r(31),a=$fsx.r(18);i.registerCustomElement("auth-comp",class extends HTMLElement{constructor(){super(),this.type="",this.username="",this.passwordConfirm="",this.email="",this.emailConfirm="",this.password="",this.errors=[],this.userService=i.getContext(r.UserService),this.sharedState=i.getContext(a.SharedState)}async activate(e,t,s){this.type=s.name}get canSave(){return"Login"===this.type?""!==this.email&&""!==this.password:""!==this.username&&""!==this.email&&""!==this.password&&this.password===this.passwordConfirm&&this.email===this.emailConfirm}async submitForm(){this.errors=[];const e={username:this.username,email:this.email,password:this.password};try{await this.userService.attemptAuth(this.type,e),location.hash="home"}catch(e){const t=await Promise.resolve(e);for(const e in t.errors)t.errors&&t.errors[e]&&this.errors.push(t.errors[e].map(t=>e+": "+t));this.render()}}render(){return s.html`
+                <div class="auth-page">
+                    <div class="container page">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3 col-xs-12">
+                                <h1 class="text-xs-center">Sign ${"login"===this.type?"in":"up"}</h1>
+                                <p class="text-xs-center">
+                                    ${"Register"===this.type?s.html`
+                                              <a href="#login">Have an account?</a>
+                                          `:s.html`
+                                              <a href="#Register">Need an account?</a>
+                                          `}
+                                </p>
+
+                                <ul class="error-messages">
+                                    ${this.errors.map(e=>s.html`<li >
+                                        ${e}
+                                    </li>`)}
+                                </ul>
+
+                                <form>
+                                    ${"Register"===this.type?s.html`
+                                              <fieldset class="form-group">
+                                                  <input
+                                                      class="form-control form-control-lg"
+                                                      type="text"
+                                                      autocomplete="username"
+                                                      placeholder="Your Name"
+                                                      @input=${e=>{this.username=e.target.value,this.render()}}
+                                                  />
+                                              </fieldset>
+                                          `:""}
+
+                                    <fieldset class="form-group">
+                                        <input
+                                            class="form-control form-control-lg"
+                                            type="text"
+                                            autocomplete="email"
+                                            placeholder="Email"
+                                            @input=${e=>{this.email=e.target.value,this.render()}}
+                                        />
+                                    </fieldset>
+
+                                    ${"Register"===this.type?s.html`
+                                              <fieldset class="form-group">
+                                                  <input
+                                                      class="form-control form-control-lg"
+                                                      type="text"
+                                                      autocomplete="new-email"
+                                                      placeholder="Confirm Email"
+                                                      @input=${e=>{this.emailConfirm=e.target.value,this.render()}}
+                                                  />
+                                              </fieldset>
+                                          `:""}
+
+                                    <fieldset class="form-group">
+                                        <input
+                                            class="form-control form-control-lg"
+                                            type="password"
+                                            autocomplete="current-password"
+                                            placeholder="Password"
+                                            @input=${e=>{this.password=e.target.value,this.render()}}
+                                        />
+                                    </fieldset>
+
+                                    ${"Register"===this.type?s.html`
+                                              <fieldset class="form-group">
+                                                  <input
+                                                      class="form-control form-control-lg"
+                                                      type="password"
+                                                      autocomplete="new-password"
+                                                      placeholder="Confirm Password"
+                                                      @input=${e=>{this.passwordConfirm=e.target.value,this.render()}}
+                                                  />
+                                              </fieldset>
+                                          `:""}
+
+                                    <!-- PS! do not use button in forms, need to improve override default -->
+                                    <input
+                                        type="button"
+                                        class="btn btn-lg btn-primary pull-xs-right"
+                                        @click=${this.submitForm}
+                                        .disabled=${!this.canSave}
+                                        .value="Sign ${"Login"===this.type?"in":"up"}"
+                                    />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `}})},$fsx.f[31]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(23),i=$fsx.r(20),r=$fsx.r(18),a=$fsx.r(16);t.UserService=class{constructor(){this.jwtService=a.getContext(i.JwtService),this.sharedState=a.getContext(r.SharedState),this.apiService=a.getContext(s.ApiService)}async populate(){if(this.jwtService.getToken()){const e=await this.apiService.get("/user");this.setAuth(e.user)}else this.purgeAuth()}setAuth(e){this.jwtService.saveToken(e.token),this.sharedState.saveState(e),this.sharedState.setState()}purgeAuth(){this.jwtService.destroyToken(),this.sharedState.resetState()}async attemptAuth(e,t){const s="Login"===e?"/login":"",i=await this.apiService.post("/users"+s,{user:t});return this.setAuth(i.user),i}async update(e){const t=await this.apiService.put("/user",{user:e});return this.sharedState.currentUser=t.user,t.user}}},$fsx.f[34]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(15),i=$fsx.r(16),r=$fsx.r(25),a=$fsx.r(4);i.registerCustomElement("editor-comp",class extends HTMLElement{constructor(){super(),this.article={title:"",description:"",body:"",tagList:[]},this.articleService=i.getContext(r.ArticleService)}tagChanged(e,t){void 0!==e&&""!==e&&this.addTag(this.tag)}async activate(e,t){return this.routeConfig=t,this.slug=e.slug,this.slug?this.article=await this.articleService.get(this.slug):(this.article={title:"",description:"",body:"",tagList:[]},null)}addTag(e){this.article.tagList.push(e)}removeTag(e){this.article.tagList.splice(this.article.tagList.indexOf(e),1)}async publishArticle(){const e=await this.articleService.save(this.article);this.slug=e.slug,a.getRouter().goto("editor/:slug",{slug:this.slug})}render(){return console.log("wow"),s.html`
+                <div class="editor-page">
+    <div class="container page">
+      <div class="row">
+
+        <div class="col-md-10 offset-md-1 col-xs-12">
+          <form>
+            <fieldset>
+              <fieldset class="form-group">
+                <input 
+                type="text" 
+                class="form-control form-control-lg" 
+                placeholder="Article Title" 
+    
+                .value=${this.article.title}
+                    @blur=${e=>this.article.title=e.target.value}
+       >
+              </fieldset>
+              <fieldset class="form-group">
+                <input type="text" class="form-control" placeholder="What's this article about?" 
+                .value=${this.article.description}
+                    @blur=${e=>this.article.description=e.target.value}
             />
-        </free-grid-row-col>
-    `}},$fsx.f[27]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14);t.rowCheckboxColumnElement=function(e,t,i,o){return r.html`
-        <free-grid-row-col style=${e} class="free-grid-col">
-            <input
-                ?readonly=${t.readonly}
-                ?disabled=${t.disabled}
-                @custom=${s.eventIF(!0,t.editEventType||"change",i)}
-                type="checkbox"
-                .checked=${o}
-                class="free-grid-row-checkbox-100"
-            />
-        </free-grid-row-col>
-    `}},$fsx.f[28]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14);t.rowNumberColumnElement=function(e,t,i,o){return r.html`
-        <free-grid-row-col style=${e} class="free-grid-col">
-            <input
-                ?readonly=${t.readonly}
-                ?disabled=${t.disabled}
-                @custom=${s.eventIF(!0,t.editEventType||"change",i)}
-                type=${t.type}
-                .valueAsNumber=${o}
-                class="free-grid-row-input"
-            />
-        </free-grid-row-col>
-    `}},$fsx.f[29]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);t.rowImageColumnElement=function(e,t){return r.html`
-        <free-grid-row-col style=${e} class="free-grid-col">
-            <img .src=${t} class="free-grid-image-round" />
-        </free-grid-row-col>
-    `}},$fsx.f[30]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(14);t.rowDateColumnElement=function(e,t,i,o){return r.html`
-        <free-grid-row-col style=${e} class="free-grid-col">
-            <input
-                ?readonly=${t.readonly}
-                ?disabled=${t.disabled}
-                @custom=${s.eventIF(!0,t.editEventType||"change",i)}
-                type=${t.type}
-                .valueAsDate=${o||null}
-                class="free-grid-row-input"
-            />
-        </free-grid-row-col>
-    `}},$fsx.f[32]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);t.rowElementsGroupRender=function(e,t,s,i,o){const a=r.html`
-        <i @click=${()=>{o.__groupExpanded?s.arrayUtils.groupCollapse(o.__groupID):s.arrayUtils.groupExpand(o.__groupID)}}>
-            <svg class="free-grid-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                ${o.__groupExpanded?r.svg`<path d="M4.8 7.5h6.5v1H4.8z" />`:r.svg`<path d="M7.4 4.8v2.7H4.7v1h2.7v3h1v-3h2.8v-1H8.5V4.8h-1z" />`}
-            </svg></i
-        ><span> ${o.__groupName} (${o.__groupTotal})</span>
-    `;return r.html`
-        <free-grid-row style=${e} class="free-grid-row free-grid-grouping-row">
-            ${o.__groupLvl?r.html`
-                      <free-grid-col
-                          class="free-grid-col free-grid-grouping-row"
-                          style="width:${o.__groupLvl?15*o.__groupLvl:0}px;left:0"
-                      >
-                      </free-grid-col>
-                  `:""}
-            ${r.html`
-                <free-grid-col
-                    class="free-grid-col-group"
-                    style="left:${o.__groupLvl?15*o.__groupLvl:0}px;right:0"
-                >
-                    ${a}
-                </free-grid-col>
-            `}
-        </free-grid-row>
-    `}},$fsx.f[35]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11);t.footerElement=function(e){return e.config.footerHeight<1&&(e.config.footerHeight=1),e.config.footerRenderCallBackFn?r.html`
-            <free-grid-footer style="height:${e.config.footerHeight}px" class="free-grid-footer"
-                >${e.config.footerRenderCallBackFn(e,null,null,null,null)}</free-grid-footer
-            >
-        `:r.html`
-            <free-grid-footer style="height:${e.config.footerHeight}px" class="free-grid-footer"></free-grid-footer>
-        `}},$fsx.f[37]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});t.Selection=class{constructor(e){this.key=0,this.grid=e,this.selectedRows=0,this.selection=new Set([])}getKey(){return this.key++,this.key}isSelected(e){let t=!1;return this.selectedRows>0&&(t=this.selection.has(this.getRowKey(e))),t}deSelectAll(){this.selection.clear(),this.selectedRows=this.selection.size}highlightRow(e,t,r){let s,i=this.getSelectedRows(),o="";if(t!==this.lastRowSelected||i[0]!==t){if(t<=r.viewRows.length-1){if("multiple"===r.config.selectionMode)switch(e.shiftKey&&(o="shift",(i=this.getSelectedRows()).length>0&&"none"===this.lastKeyKodeUsed&&(this.lastRowSelected=i[0],this.lastKeyKodeUsed="shift")),e.ctrlKey&&(o="ctrl"),e.ctrlKey||e.shiftKey||(o="none"),!0){case"none"===o:this.select(t,!1);break;case"shift"===this.lastKeyKodeUsed&&"ctrl"===o:!0===(s=this.isSelected(t))?this.deSelect(t):this.select(t,!0),this.lastRowSelected=t;break;case"ctrl"===this.lastKeyKodeUsed&&"shift"===o:const r=this.getSelectedRows();this.selectRange(this.lastRowSelected,t);const a=this.getSelectedRows();this.setSelectedRows(r.concat(a));break;case"ctrl"===this.lastKeyKodeUsed&&"ctrl"===o:case"none"===this.lastKeyKodeUsed&&"ctrl"===o:!0===(s=this.isSelected(t))?this.deSelect(t):this.select(t,!0),this.lastRowSelected=t;break;case"shift"===this.lastKeyKodeUsed&&"shift"===o:this.lastRowSelected>t?this.selectRange(t,this.lastRowSelected):this.selectRange(this.lastRowSelected,t);break;case"none"===this.lastKeyKodeUsed&&"shift"===o:-1!==this.lastRowSelected?this.lastRowSelected>t?this.selectRange(t,this.lastRowSelected):this.selectRange(this.lastRowSelected,t):(this.lastRowSelected=t,this.select(t,!1));break;default:console.error("error, this should not happen, debug selection")}else this.select(t,!1);this.lastKeyKodeUsed=o,r.reRender()}}else e.ctrlKey&&(o="ctrl"),"ctrl"===o?(this.lastKeyKodeUsed=o,!0===(s=this.isSelected(t))&&this.deSelect(t),this.lastRowSelected=t):this.select(t,!1),r.reRender()}getRowKey(e){return this.grid.viewRows[e]&&this.grid.viewRows[e].__fg_key}getRowKeys(){const e=[];return this.grid.viewRows.forEach(t=>{e.push(t.__fg_key)}),e}deSelect(e){this.selection.delete(this.getRowKey(e)),this.selectedRows=this.selection.size}select(e,t){switch(this.grid.config.selectionMode){case"none":case null:case void 0:break;case"single":this.selection.clear(),this.selection.add(this.getRowKey(e)),this.selectedRows=this.selection.size;break;case"multiple":t?(this.selection.add(this.getRowKey(e)),this.selectedRows=this.selection.size):(this.selection.clear(),this.selection.add(this.getRowKey(e)),this.selectedRows=this.selection.size)}}selectRange(e,t){if("multiple"===this.grid.config.selectionMode){this.selection.clear();for(let r=e;r<t+1;r++)this.selection.add(this.getRowKey(r));this.selectedRows=this.selection.size}}getSelectedRows(){const e=[],t=this.getRowKeys();return this.selectedRows>0&&t.forEach((t,r)=>{!0===this.selection.has(t)&&e.push(r)}),e}setSelectedRows(e){this.selectedRows>0&&this.selection.clear();for(let t=0;t<e.length;t++)this.selection.add(this.getRowKey(e[t]));this.selectedRows=this.selection.size}}},$fsx.f[41]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(38),s=$fsx.r(39),i=$fsx.r(40);t.ArrayUtils=class{constructor(e){this.arrayFilter=new r.ArrayFilter,this.arraySort=new s.ArraySort,this.arrayGrouping=new i.ArrayGrouping,this.sortCallbackBinded=this.sortCallback.bind(this),this.filterCallbackBinded=this.filterCallback.bind(this),this.groupingCallbackBinded=this.groupingCallback.bind(this),this.removeGroupBinded=this.removeGroup.bind(this),this.freeGrid=e}orderBy(e,t,r){const s=this.getGrouping().map(e=>e.field),i=this.getGrouping();let o={fixed:null,full:null};if(s.length>0){const a=this.getOrderBy();this.resetSort();let n=!1,l=[],c=0;t?a.forEach(e=>{c++,-1!==s.indexOf(e.attribute)||r?(l.push(e),e.attribute===t&&(e.asc=!0!==e.asc,e.no=c,n=!0)):e.attribute===t&&(e.asc=!0!==e.asc,e.no=c,n=!0,l.push(e))}):l=a,this.setLastSort(l),!n&&t&&this.setOrderBy(t,!0),this.runOrderbyOn(e),o={fixed:this.group(e,i,!0),full:e}}else if(t)this.setOrderBy(t,r),this.runOrderbyOn(e),o={fixed:e,full:e};else{const t=this.getOrderBy();this.resetSort(),this.setLastSort(t),this.runOrderbyOn(e),o={fixed:e,full:e}}return this.freeGrid.config.sortingSet=this.arraySort.getOrderBy(),o}getGrouping(){return this.arrayGrouping.getGrouping()}setGrouping(e){this.arrayGrouping.setGrouping(e)}getExpanded(){return this.arrayGrouping.getExpanded()}setExpanded(e){this.arrayGrouping.setExpanded(e)}groupCollapse(e){this.freeGrid.viewRows=this.arrayGrouping.collapseOneOrAll(e),this.freeGrid.config.groupingExpanded=this.arrayGrouping.getExpanded(),this.freeGrid.reRender()}groupExpand(e){this.freeGrid.viewRows=this.arrayGrouping.expandOneOrAll(e),this.freeGrid.config.groupingExpanded=this.arrayGrouping.getExpanded(),this.freeGrid.reRender()}getOrderBy(){return this.arraySort.getOrderBy()}setLastSort(e){this.arraySort.setLastSort(e)}setOrderBy(e,t){this.arraySort.setOrderBy(e,t)}runOrderbyOn(e){this.arraySort.runOrderbyOn(e)}resetSort(e){this.arraySort.reset(e)}resetGrouping(){this.arrayGrouping.reset()}getCurrentFilter(){return this.arrayFilter.getLastFilter()}group(e,t,r){const s=this.arrayGrouping.group(e,t,r);return this.freeGrid.config.groupingExpanded=this.arrayGrouping.getExpanded(),s}removeGroup(e){const t=this.getGrouping(),r=t.indexOf(e);if(-1!==r&&t.splice(r,1),t.length){const e=this.group(this.freeGrid.activeData,t,!0);this.freeGrid.viewRows=e}else this.freeGrid.viewRows=this.freeGrid.activeData;this.freeGrid.reRender()}groupingCallback(e,t,r){let s=!!t;const i=this.freeGrid.config.groupingSet||[];if(t&&i.forEach(e=>{e.field===t.attribute&&(s=!1)}),s&&i.push({title:t.header,field:t.attribute}),this.arraySort.clearConfigSort(r.config.columns),this.arraySort.reset(),i.forEach(e=>{this.arraySort.setOrderBy(e.field,!0)}),this.arraySort.runOrderbyOn(this.freeGrid.activeData),this.arraySort.SetConfigSort(r.config.columns),i.length){const e=this.group(this.freeGrid.activeData,i,!0);this.freeGrid.config.groupingSet=this.getGrouping(),this.freeGrid.config.sortingSet=this.getOrderBy(),this.freeGrid.viewRows=e}else this.freeGrid.viewRows=this.freeGrid.activeData;r.reRender()}sortCallback(e,t,r){const s=null===t.sortable.sortAscending||!t.sortable.sortAscending;this.arraySort.clearConfigSort(r.config.columns);const i=this.orderBy(r.activeData,{attribute:t.attribute,asc:s},e.shiftKey);this.freeGrid.config.sortingSet=this.getOrderBy(),this.arraySort.SetConfigSort(r.config.columns),this.freeGrid.viewRows=i.fixed,r.reRender()}filterCallback(e,t,r){switch(t.type){case"date":t.filterable.currentValue=new Date(e.target.valueAsDate);break;case"number":t.filterable.currentValue=e.target.valueAsNumber;break;case"boolean":t.filterable.currentValue=e.target.indeterminate?null:e.target.checked;break;default:t.filterable.currentValue=e.target.value}const s=[];r.config.columns.forEach(e=>{const t=e.filterable;t&&null!==t.currentValue&&void 0!==t.currentValue&&s.push({attribute:e.attribute,type:e.type||"text",operator:t.operator?this.arrayFilter.operators[t.operator]:this.arrayFilter.operators[this.arrayFilter.getFilterFromType(e.type)],value:t.currentValue})}),r.activeData=this.arrayFilter.runQueryOn(r.data,s);const i=this.orderBy(r.activeData,null,!1);this.arraySort.SetConfigSort(r.config.columns),this.freeGrid.viewRows=i.fixed,this.freeGrid.reRender()}}},$fsx.f[38]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});t.ArrayFilter=class{constructor(){this.operators={EQUAL:1,LESS_THAN_OR_EQUAL_TO:2,GREATER_THAN_OR_EQUAL_TO:3,LESS_THAN:4,GREATER_THAN:5,CONTAINS:6,NOT_EQUAL_TO:7,DOES_NOT_CONTAIN:8,BEGIN_WITH:9,END_WITH:10},this.lastFilter=[]}getLastFilter(){return this.lastFilter}getFilterFromType(e){switch(e){case"date":case"number":return"GREATER_THAN";case"bool":return"EQUAL_TO";default:return"BEGIN_WITH"}}runQueryOn(e,t){return this.lastFilter=t,e.filter(e=>{let r=!0;return t.forEach(t=>{let s,i,o,a=t.operator;const n=t.type,l={true:!0,false:!1};switch(n){case"number":s=e[t.attribute],(i=Number(t.value))||(i=0),6===(a=a||1)&&(a=1);break;case"string":s=null===e[t.attribute]||void 0===e[t.attribute]?"":e[t.attribute].toLowerCase(),i=t.value.toLowerCase(),o=a=a||9,"*"===t.value.charAt(0)&&9===a&&(o=6,i=i.substr(1,i.length)),"*"===t.value.charAt(0)&&1===a&&(o=10,i=i.substr(1,i.length)),"*"===t.value.charAt(t.value.length-1)&&1===a&&10===o&&(o=6,i=i.substr(0,i.length-1)),"*"===t.value.charAt(t.value.length-1)&&1===a&&10!==o&&6!==o&&(o=9,i=i.substr(0,i.length-1)),a!==o&&(a=o);break;case"boolean":s=e[t.attribute],i=l[t.value],a=1;break;default:try{s=e[t.attribute].toLowerCase()}catch(r){s=e[t.attribute]}try{i=t.value.toLowerCase()}catch(e){i=t.value}a=a||1}switch(a){case 1:s!==i&&(r=!1);break;case 2:s<=i||(r=!1);break;case 3:s>=i||(r=!1);break;case 4:s<i||(r=!1);break;case 5:s>i||(r=!1);break;case 6:-1===s.indexOf(i)&&(r=!1);break;case 7:s===i&&(r=!1);break;case 8:-1!==s.indexOf(i)&&(r=!1);break;case 9:s.substring(0,i.length)!==i&&(r=!1);break;case 10:s.substring(s.length-i.length,s.length)!==i&&(r=!1);break;default:s!==i&&(r=!1)}"string"===n&&"*"===t.value.charAt(0)&&1===t.value.length&&(r=!0)}),r})}}},$fsx.f[39]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});t.ArraySort=class{constructor(){this.lastSort=[],this.curSort=[],this.localeCompareCode=null,this.localeCompareOptions={sensitivity:"base"}}setLocaleCompare(e,t){this.localeCompareCode=e||null,this.localeCompareOptions=t||{sensitivity:"base"}}reset(e){e?(this.lastSort=[{attribute:e,asc:!0,no:0}],this.curSort=[{attribute:e,asc:!0,no:0}]):(this.lastSort=[],this.curSort=[])}SetConfigSort(e){const t=[],r=[],s=[];this.lastSort.forEach(e=>{t.push(e.attribute),r.push(e.asc),s.push(e.no)}),e.forEach(e=>{const i=t.indexOf(e.attribute);-1!==i?(e.sortable.sortAscending=!0===r[i],e.sortable.sortNo=s[i]):(e.sortable.sortAscending=null,e.sortable.sortNo=null)})}clearConfigSort(e){e.forEach(e=>{e.sortable&&(e.sortable.sortAscending=null,e.sortable.sortNo=null)})}setLastSort(e){this.lastSort=e,this.curSort=e}setOrderBy(e,t){if(Array.isArray(e))this.lastSort=e,this.curSort=e;else{let r;const s=!1;if(r="string"==typeof e?{attribute:e,asc:!0}:void 0===e.asc?{attribute:e.attribute,asc:!0}:{attribute:e.attribute,asc:e.asc},t&&this.lastSort.length>0){this.curSort=this.lastSort;let e=!1;this.curSort.forEach(t=>{t.attribute===r.attribute&&(e=!0,t.asc=r.asc)}),e||(this.curSort.push(r),this.curSort[this.curSort.length-1].no=this.curSort.length),this.lastSort=this.curSort}else this.curSort=[r],this.curSort[0].no=1,this.lastSort[0]&&this.lastSort[0].attribute===this.curSort[0].attribute&&this.lastSort[0].asc===this.curSort[0].asc&&(s||(this.curSort[0].asc=!0!==this.curSort[0].asc)),this.lastSort=this.curSort}}getOrderBy(){return this.curSort}runOrderbyOn(e){const t=this.getOrderBy();e.sort((e,r)=>{let s=0;for(let i=0;i<t.length&&0===s;++i){const o=t[i],a=e[o.attribute],n=r[o.attribute],l=(e,t)=>{let r=null;return r=this.localeCompareCode?e.localeCompare(t,this.localeCompareCode,this.localeCompareOptions):e.localeCompare(t)};a!==n&&(s=o.asc?"string"==typeof a&&"string"==typeof a?l(a,n)<0&&0!==l(a,n)?-1:1:a<n?-1:1:"string"==typeof a&&"string"==typeof a?l(a,n)<0&&0!==l(a,n)?1:-1:a<n?1:-1)}return s}),this.lastSort=this.getOrderBy().slice(0)}}},$fsx.f[40]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});t.ArrayGrouping=class{constructor(){this.grouping=[],this.expanded=new Set([])}reset(){this.groups=[],this.grouping=[],this.expanded=new Set([])}group(e,t,r){if(t.length>0){r||(this.expanded=new Set([]));const s=[];return t.forEach((t,r)=>{if(0===r){const i=this.createMainGrouping(e,t.field,r);s.push(i)}else{const e=s[s.length-1],i=this.groupChildren(e,t.field,r);s.push(i)}}),this.groups=s,this.grouping=t,r?this.expandOneOrAll(null,this.expanded):s[0]}return e.forEach(e=>{e.__groupLvl=0}),this.grouping=[],e}getExpanded(){return Array.from(this.expanded)}setExpanded(e){this.expanded=new Set(e)}getGrouping(){return this.grouping}setGrouping(e){this.grouping=e}expandOneOrAll(e,t){let r,s=!e;e||t&&(s=!1),t||(t=new Set([]));const i=[],o=this.groups[0];return r=o=>{o.__groupChildren.forEach(o=>{switch(i.push(o),!0){case s:case o.__groupID===e:case t.has(o.__groupID):case o.__groupID!==e&&o.__groupExpanded:o.__groupChildren&&(o.__groupExpanded=!0,this.expanded.add(o.__groupID),r(o))}})},o.forEach(o=>{switch(i.push(o),!0){case s:case o.__groupID===e:case t.has(o.__groupID):case o.__groupID!==e&&o.__groupExpanded:o.__groupExpanded=!0,this.expanded.add(o.__groupID),o.__groupChildren&&r(o)}}),i}collapseOneOrAll(e){const t=!e;let r;e=void 0===e?null:e;const s=[],i=this.groups[0];return r=i=>{i.__groupChildren.forEach(i=>{switch(!0){case t:i.__groupChildren&&(i.__groupExpanded=!1,this.expanded.delete(i.__groupID),r(i));break;case i.__groupID===e:s.push(i),this.expanded.delete(i.__groupID),i.__groupExpanded=!1;break;default:s.push(i),i.__groupChildren&&i.__groupExpanded&&r(i)}})},i.forEach(i=>{switch(s.push(i),!0){case t:i.__groupExpanded=!1,this.expanded.delete(i.__groupID),i.__groupChildren&&r(i);break;case i.__groupID===e:i.__groupExpanded=!1,this.expanded.delete(i.__groupID);break;default:i.__groupChildren&&i.__groupExpanded&&r(i)}}),s}createMainGrouping(e,t,r){const s=[];let i={},o=null;return e.forEach(e=>{let a=e[t];(a=(a="boolean"==typeof a?a.toString():a)||"blank")!==o?(i={__groupName:a||"blank",__group:!0,__groupID:a,__groupLvl:r,__groupChildren:[e],__groupTotal:1,__groupExpanded:!1},e.__groupLvl=r+1,o=a,s.push(i)):(e.__groupLvl=r+1,i.__groupChildren.push(e),i.__groupTotal++)}),s}groupChildren(e,t,r){const s=[];let i={};return e.forEach(e=>{let o=null;const a=[];e.__groupChildren.forEach(n=>{if(n[t]!==o){const l=n[t]||"blank",c=e.__groupID||"blank";i={__groupName:n[t],__groupID:c+"-"+l,__group:!0,__groupLvl:r,__groupChildren:[n],__groupTotal:1,__groupExpanded:!1},n.__groupLvl=r+1,o=n[t],a.push(i),s.push(i)}else n.__groupLvl=r+1,i.__groupChildren.push(n),i.__groupTotal++}),e.__groupChildren=a}),s}}},$fsx.f[48]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(11),s=$fsx.r(45),i=$fsx.r(47);class o extends HTMLElement{constructor(){super(),this.data=[],this.dummyDataGenerator=new i.DummyDataGenerator,this.data=this.dummyDataGenerator.generateData(1e3),this.gridConfig=s.COL_SETUP}connectedCallback(){this.render()}replaceData(e){this.data=this.dummyDataGenerator.generateData(e),this.render()}clear(){this.gridConfig.groupingExpanded=[],this.gridConfig.sortingSet=[],this.gridConfig.groupingSet=[],this.getElementsByTagName("FREE-GRID")[0].manualConfigChange()}addData(e){this.data=this.data.concat(this.dummyDataGenerator.generateData(e)),this.render()}render(){r.render(r.html`
-                <free-grid
-                    class="free-grid"
-                    .data=${this.data}
-                    .config=${this.gridConfig}
-                >
-                </free-grid>
-            `,this)}}t.AppComponent=o,customElements.get("app-component")||customElements.define("app-component",o)},$fsx.f[45]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.COL_SETUP={rowHeight:60,panelHeight:0,headerHeight:0,footerHeight:0,selectionMode:"multiple",columns:[{header:"index",attribute:"index",type:"number",width:120,filterable:{},sortable:{}},{header:"First",attribute:"first",width:100,filterable:{},sortable:{},allowGrouping:!0},{header:"Last",attribute:"last",type:"text",width:100,filterable:{},sortable:{},allowGrouping:!0}]}},$fsx.f[47]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const r=$fsx.r(46);t.DummyDataGenerator=class{constructor(){this.totalGenerated=0,this.internalDataArray=r.data,this.rowTop=0,this.first=[],this.last=[],this.images=[],this.color=[];for(let e=0;e<this.internalDataArray.length;e++)this.first.push(this.internalDataArray[e].first),this.last.push(this.internalDataArray[e].last),this.images.push(this.internalDataArray[e].image),this.color.push(this.internalDataArray[e].color)}reset(){this.totalGenerated=0}generateData(e){const t=[];for(let r=0;r<e;r++){this.totalGenerated++;const e=Math.floor(27*Math.random())+0,s=Math.floor(27*Math.random())+0,i=Math.floor(27*Math.random())+0,o=Math.floor(27*Math.random())+0,a=new Date((new Date).setDate((new Date).getDate()+(Math.floor(300*Math.random())+0)));t.push({index:this.totalGenerated,name:r%7==0?null:this.first[o]+" "+this.last[i],first:this.first[o],last:this.last[i],images:this.images[s],color:this.color[o],number:Math.floor(9e3*Math.random())+0,bool:!!(e%3),date:a})}return t}}},$fsx.f[46]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0}),t.data=[{first:"Isabel",last:"Conrad",image:"https://s3.amazonaws.com/uifaces/faces/twitter/enda/73.jpg",color:"rgb(76,120,108)"},{first:"Jocelyn",last:"Wooten",image:"https://s3.amazonaws.com/uifaces/faces/twitter/guillogo/73.jpg",color:"rgb(134,91,60)"},{first:"Valentine",last:"Meyer",image:"https://s3.amazonaws.com/uifaces/faces/twitter/iboldurev/73.jpg",color:"rgb(201,142,97)"},{first:"Silva",last:"Alexander",image:"https://s3.amazonaws.com/uifaces/faces/twitter/smalonso/73.jpg",color:"rgb(113,105,251)"},{first:"Hopkins",last:"Wong",image:"https://s3.amazonaws.com/uifaces/faces/twitter/taherrapee/73.jpg",color:"rgb(133,126,66)"},{first:"Harriet",last:"Sherman",image:"https://s3.amazonaws.com/uifaces/faces/twitter/ismailmayat/73.jpg",color:"rgb(195,89,110)"},{first:"Stacie",last:"Bartlett",image:"https://s3.amazonaws.com/uifaces/faces/twitter/carlyson/73.jpg",color:"rgb(164,84,221)"},{first:"Charlene",last:"Stevens",image:"https://s3.amazonaws.com/uifaces/faces/twitter/thewillbeard/73.jpg",color:"rgb(99,147,74)"},{first:"Reyes",last:"Hartman",image:"https://s3.amazonaws.com/uifaces/faces/twitter/tgormtx/73.jpg",color:"rgb(99,55,193)"},{first:"Alissa",last:"Duncan",image:"https://s3.amazonaws.com/uifaces/faces/twitter/andresenfredrik/73.jpg",color:"rgb(218,58,52)"},{first:"Christina",last:"Craft",image:"https://s3.amazonaws.com/uifaces/faces/twitter/mwarkentin/73.jpg",color:"rgb(181,253,141)"},{first:"Burt",last:"Landry",image:"https://s3.amazonaws.com/uifaces/faces/twitter/herkulano/73.jpg",color:"rgb(95,147,193)"},{first:"Baldwin",last:"Hammond",image:"https://s3.amazonaws.com/uifaces/faces/twitter/jonny_moon/73.jpg",color:"rgb(175,176,59)"},{first:"Laverne",last:"Hampton",image:"https://s3.amazonaws.com/uifaces/faces/twitter/alyssalowww/73.jpg",color:"rgb(225,78,134)"},{first:"Kirsten",last:"Chang",image:"https://s3.amazonaws.com/uifaces/faces/twitter/rafelorden/73.jpg",color:"rgb(118,83,134)"},{first:"Mercado",last:"Hancock",image:"https://s3.amazonaws.com/uifaces/faces/twitter/wim1k/73.jpg",color:"rgb(244,178,231)"},{first:"Obrien",last:"Bruce",image:"https://s3.amazonaws.com/uifaces/faces/twitter/rpeezy/73.jpg",color:"rgb(52,103,133)"},{first:"Pearl",last:"Moran",image:"https://s3.amazonaws.com/uifaces/faces/twitter/sectronov/73.jpg",color:"rgb(168,119,234)"},{first:"Underwood",last:"Barton",image:"https://s3.amazonaws.com/uifaces/faces/twitter/starburst1977/73.jpg",color:"rgb(112,197,153)"},{first:"Solomon",last:"Lloyd",image:"https://s3.amazonaws.com/uifaces/faces/twitter/mocabyte/73.jpg",color:"rgb(69,68,176)"},{first:"Lyons",last:"Stevenson",image:"https://s3.amazonaws.com/uifaces/faces/twitter/iamasifmirza/73.jpg",color:"rgb(178,99,182)"},{first:"Swanson",last:"Richardson",image:"https://s3.amazonaws.com/uifaces/faces/twitter/benoitboucart/73.jpg",color:"rgb(230,107,202)"},{first:"Aida",last:"Hurley",image:"https://s3.amazonaws.com/uifaces/faces/twitter/markwienands/73.jpg",color:"rgb(119,239,85)"},{first:"Mccormick",last:"Jensen",image:"https://s3.amazonaws.com/uifaces/faces/twitter/menghe/73.jpg",color:"rgb(204,198,130)"},{first:"Ramona",last:"Meyers",image:"https://s3.amazonaws.com/uifaces/faces/twitter/heyanata/73.jpg",color:"rgb(236,222,59)"},{first:"Sharp",last:"Lindsay",image:"https://s3.amazonaws.com/uifaces/faces/twitter/thibaut_re/73.jpg",color:"rgb(218,74,95)"},{first:"Dina",last:"Robbins",image:"https://s3.amazonaws.com/uifaces/faces/twitter/bluesix/73.jpg",expanded:!1,color:"rgb(158,62,57)"},{first:"Franco",last:"Carrillo",image:"https://s3.amazonaws.com/uifaces/faces/twitter/w8candice/73.jpg",color:"rgb(89,84,186)"},{first:"Guadalupe",last:"Odom",image:"https://s3.amazonaws.com/uifaces/faces/twitter/mbilderbach/73.jpg",color:"rgb(180,227,238)"}]},$fsx.r(49);
-//# sourceMappingURL=app.js.map
+              </fieldset>
+              <fieldset class="form-group">
+                <textarea class="form-control" rows="8" placeholder="Write your article (in markdown)" 
+      
+                .value=${this.article.body}
+                    @blur=${e=>this.article.body=e.target.value}
+                ></textarea>
+              </fieldset>
+              <fieldset class="form-group">
+                <input type="text" class="form-control" placeholder="Enter tags" 
+                    .value=${this.tag}
+                    @blur=${e=>this.tag=e.target.value}>
+        
+                <div class="tag-list">
+                    ${this.article.tagList.map(e=>s.html`
+                            <span repeat.for="$tag of article.tagList" class="tag-default tag-pill">
+                                <i class="ion-close-round" @click=${()=>{this.removeTag(e)}}"></i>
+                                ${e}</span
+                            >
+                        `)}
+                  
+                </div>
+              </fieldset>
+
+              <!-- PS! do not use button in forms, need to improve override default -->
+              <input type="button" class="btn btn-lg pull-xs-right btn-primary" type="button" @click=${this.publishArticle} value="Publish Article">
+            
+            </fieldset>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+            `}})},$fsx.f[41]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(15);$fsx.r(39),$fsx.r(40),$fsx.r(16).registerCustomElement("app-main",class extends HTMLElement{render(){return s.html`
+                <header-section></header-section>
+                <free-router name="main"></free-router>
+                <footer-section></footer-section>
+            `}})},$fsx.f[39]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(15);$fsx.r(16).registerCustomElement("footer-section",class extends HTMLElement{render(){return s.html`
+                <footer>
+                    <div class="container">
+                        <a href="/" class="logo-font">conduit</a>
+
+                        <span class="attribution">
+                            An interactive learning project from
+                            <a href="https://thinkster.io">Thinkster</a>. Code &amp; design licensed under MIT.
+                        </span>
+                    </div>
+                </footer>
+            `}})},$fsx.f[40]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(15),i=$fsx.r(16),r=$fsx.r(18);i.registerCustomElement("header-section",class extends HTMLElement{connectedCallback(){i.getContext(i.EventAggregator).subscribe("routeChange",this,this.routechange.bind(this))}routechange(e){this.activeRoute=e.name,this.render()}render(){return s.html`
+                <nav class="navbar navbar-light">
+                    <div class="container">
+                        <a class="navbar-brand" href="#home">conduit</a>
+                        <ul class="nav navbar-nav pull-xs-right">
+                            <li class="${"nav-item"+("home"===this.activeRoute?" active":"")}">
+                                <a class="nav-link" href="#home">Home</a>
+                            </li>
+
+                            ${i.getContext(r.SharedState).isAuthenticated?s.html`
+                                    <li class="${"nav-item"+("create"===this.activeRoute?" active":"")}">
+                                        <a class="nav-link" href="#editor"> <i class="ion-compose"></i>&nbsp;New Post </a>
+                                    </li>
+
+                                    <li class="${"nav-item"+("settings"===this.activeRoute?" active":"")}">
+                                        <a class="nav-link" href="#settings"> <i class="ion-gear-a"></i>&nbsp;Settings </a>
+                                    </li>
+                                `:""}
+                            ${i.getContext(r.SharedState).isAuthenticated?"":s.html`
+                                    <li class="${"nav-item"+("login"===this.activeRoute?" active":"")}">
+                                        <a class="nav-link" href="#login"><i class="ion-compose"></i>Sign in</a>
+                                    </li>
+
+                                    <li class="${"nav-item"+("register"===this.activeRoute?" active":"")}">
+                                        <a class="nav-link" href="#register"><i class="ion-compose"></i>Sign up</a>
+                                    </li>
+                                `}
+                            ${i.getContext(r.SharedState).isAuthenticated?s.html`
+                                    <li class="${"nav-item"+("profile"===this.activeRoute?" active":"")}">
+                                        <a class="nav-link" href="${"#profile/"+i.getContext(r.SharedState).currentUser.username}"
+                                            >${i.getContext(r.SharedState).currentUser.username}</a
+                                        >
+                                    </li>
+                                `:""}
+                        </ul>
+                    </div>
+                </nav>
+            `}})},$fsx.r(42);
