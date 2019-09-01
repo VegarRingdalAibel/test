@@ -7,12 +7,15 @@ $fsx.f[38]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx
 
             <div class="section-body ">
                 <form class="flex flex-col items-center ">
-                    <input
-                        @input=${e=>{this.userID=e.target.value}}
-                        .value=${this.userID}
-                        placeholder="id card number"
-                        class=" p-2 m-2 w-5/6 text-center bg-gray-300"
-                    />
+                    <label class="text-white text-center"
+                        >User ID:
+                        <input
+                            @input=${e=>{this.userID=e.target.value}}
+                            type="username"
+                            .value=${this.userID}
+                            placeholder="id card number"
+                            class=" p-2 m-2 w-5/6 text-center bg-gray-700 text-white"
+                    /></label>
                     <div>
                         <button @click=${this.login} class="default-buttons">
                             Login
