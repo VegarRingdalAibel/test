@@ -1,4 +1,4 @@
-$fsx.f[38]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(12),l=$fsx.r(23),i=$fsx.r(28),n=$fsx.r(36);let c=class extends HTMLElement{constructor(){super(...arguments),this.userID=""}connectedCallback(){this.app=i.instance(n.App),this.app.login.signout()}async login(){await this.app.login.signin(this.userID)}render(){return l.html`
+$fsx.f[37]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx.r(11),l=$fsx.r(22),n=$fsx.r(27),i=$fsx.r(35);let c=class extends HTMLElement{constructor(){super(...arguments),this.userID=""}connectedCallback(){this.app=n.instance(i.App),this.app.login.signout()}async login(e){e.preventDefault();await this.app.login.signin(this.userID)}render(){return l.html`
             <div class="section-header flex flex-col items-center">
                 <h1 class=" text-xl">
                     Welcome
@@ -18,12 +18,12 @@ $fsx.f[38]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const s=$fsx
                     /></label>
                     <div>
                         <button @click=${this.login} class="default-buttons">
-                            Login
+                            login
                         </button>
                         <button @click=${this.login} class="default-buttons">
-                            Scan id card
+                            scan id card
                         </button>
                     </div>
                 </form>
             </div>
-        `}};c=s.__decorate([i.customElement("login-route")],c),t.default=c};
+        `}};c=s.__decorate([n.customElement("login-route")],c),t.default=c};

@@ -1,4 +1,4 @@
-$fsx.f[39]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const l=$fsx.r(12),s=$fsx.r(23),c=$fsx.r(28),i=$fsx.r(36);let o=class extends HTMLElement{constructor(){super(...arguments),this.modules=[]}async activate(){this.app=c.instance(i.App),this.modules=this.app.module.getModules()}selectModule(e){this.app.module.selectModule(e)}render(){return s.html`
+$fsx.f[38]=(e,t)=>{Object.defineProperty(t,"__esModule",{value:!0});const l=$fsx.r(11),s=$fsx.r(22),c=$fsx.r(27),i=$fsx.r(35);let o=class extends HTMLElement{constructor(){super(...arguments),this.modules=[]}async activate(){this.app=c.instance(i.App),this.modules=this.app.module.getModules()}selectModule(e){this.app.module.selectModule(e)}render(){return s.html`
             <div class="section-header  flex flex-col items-center">
                 <h1 class=" text-xl">
                     Select module
