@@ -57,13 +57,124 @@ let default_1 = class extends HTMLElement {
             console.log(`[${this.tagName} : ${this._id}]`, 'render');
         }
         return lit_html_1.html `
-            <div class="flex flex-col">
-                <div class="flex-1">header</div>
-                <section class="flex-1 flex flex-row">
-                <div class="flex-1"> åpningstider</div>
-                <iframe class="flex-1" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d509.8576044755154!2d5.192827991996814!3d59.25895776715299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x463b09eb841f509b%3A0x641321de394fa19a!2sGutenberg%20Pub!5e0!3m2!1sen!2sno!4v1567966548084!5m2!1sen!2sno"  frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+            <div class="flex flex-col m-3 container m-auto">
+                <h1 class="flex-1  text-center font-bold text-5xl">
+                    Gutenberg
+                </h1>
+                <section class="flex-1 flex flex-col md:flex-row">
+                    <div class="flex-1  flex flex-col p-2">
+                        <p class="text-center underline font-bold">
+                            Åpningstider
+                        </p>
+                        <span class="text-center">Mandag - stengt</span>
+                        <span class="text-center">Tirdag - kl 19:00</span>
+                        <span class="text-center">Onsdag - kl 19:00</span>
+                        <span class="text-center"
+                            >Tordag - kl 19:00 - 01:30</span
+                        >
+                        <span class="text-center"
+                            >Fredag - kl 19:00 - 02:30</span
+                        >
+                        <span class="text-center"
+                            >Lørdag - kl 19:00 - 02:30</span
+                        >
+                        <span class="text-center">Søndag - kl 14:00</span>
+                    </div>
+                    <iframe
+                        class="flex-1"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d509.8576044755154!2d5.192827991996814!3d59.25895776715299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x463b09eb841f509b%3A0x641321de394fa19a!2sGutenberg%20Pub!5e0!3m2!1sen!2sno!4v1567966548084!5m2!1sen!2sno"
+                        frameborder="0"
+                        style="border:0;"
+                        allowfullscreen=""
+                    ></iframe>
                 </section>
-            
+                <section class="flex flex-col items-center">
+                    <h2 class=" text-center text-3xl p-2 font-semibold">
+                        uke XX
+                    </h2>
+                    <div class="flex flex-col lg:flex-row">
+                        <div class="flex flex-col md:flex-row">
+                            <!--     dag template -->
+
+                            <div class="flex-1 flex flex-col mt-5 p-2">
+                                <h3 class="text-center font-semibold text-xl">
+                                    Torsdag 13. September
+                                </h3>
+                                <div class="md:flex-shrink-0 center-item">
+                                    <img
+                                        style="width:250px; height:250px"
+                                        class="rounded-lg m-auto"
+                                        src="https://dummyimage.com/250x250/bd46bd/0011ff.gif"
+                                    />
+                                </div>
+                                <span class="text-center">cc kr 100</span>
+                                <span class="text-center"
+                                    >Åpner fra kl 1900 - 0230
+                                </span>
+                                <span class="text-center "> til kl 0200</span>
+                            </div>
+                            <!--     dag template -->
+
+                            <div class="flex-1 flex flex-col mt-5 p-2">
+                                <h3 class="text-center font-semibold text-xl">
+                                    Fredag 14. September
+                                </h3>
+                                <div class="md:flex-shrink-0 center-item">
+                                    <img
+                                        style="width:250px; height:250px"
+                                        class="rounded-lg m-auto"
+                                        src="https://dummyimage.com/250x250/bd46bd/0011ff.gif"
+                                    />
+                                </div>
+                                <span class="text-center">cc kr 100</span>
+                                <span class="text-center"
+                                    >Åpner fra kl 1900 - 0230
+                                </span>
+                                <span class="text-center "> til kl 0200</span>
+                            </div>
+                            <!--     dag template -->
+                        </div>
+
+                        <div class="flex flex-col md:flex-row">
+                            <div class="flex-1 flex flex-col mt-5 p-2">
+                                <h3 class="text-center font-semibold text-xl">
+                                    Lørdag 15. September
+                                </h3>
+                                <div class="md:flex-shrink-0 center-item">
+                                    <img
+                                        style="width:250px; height:250px"
+                                        class="rounded-lg m-auto"
+                                        src="https://dummyimage.com/250x250/bd46bd/0011ff.gif"
+                                    />
+                                </div>
+                                <span class="text-center">cc kr 100</span>
+                                <span class="text-center"
+                                    >Åpner fra kl 1900 - 0230
+                                </span>
+                                <span class="text-center "> til kl 0200</span>
+                            </div>
+                            <!--     dag template -->
+
+                            <div class="flex-1 flex flex-col mt-5 p-2">
+                                <h3 class="text-center font-semibold text-xl">
+                                    Søndag 16. September
+                                </h3>
+                                <div class="md:flex-shrink-0 center-item">
+                                    <img
+                                        style="width:250px; height:250px"
+                                        class="rounded-lg m-auto"
+                                        src="https://dummyimage.com/250x250/bd46bd/0011ff.gif"
+                                    />
+                                </div>
+                                <span class="text-center">cc kr 100</span>
+                                <span class="text-center"
+                                    >Åpner fra kl 1900 - 0230
+                                </span>
+                                <span class="text-center "> til kl 0200</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         `;
     }
