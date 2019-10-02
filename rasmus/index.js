@@ -1,14 +1,14 @@
 
-const button = document.getElementById('button');
-const input = document.getElementById('input');
-const output = document.getElementById('output');
+var button = document.getElementById('button');
+var input = document.getElementById('input');
+var output = document.getElementById('output');
 button.addEventListener('click', function(){
-    const rows = input.value.split('\n');
-    const newRows = [];
+    var rows = input.value.split('\n');
+    var newRows = [];
 
-    rows.forEach(row => {
-        const cols = row.split('\t');
-        cols.forEach((col)=>{
+    rows.forEach(function(row)  {
+        var cols = row.split('\t');
+        cols.forEach(function(col){
             newRows.push(col);
         })
         newRows.push('')
