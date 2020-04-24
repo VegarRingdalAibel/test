@@ -1,0 +1,16 @@
+[
+  {
+    "absPath": "D:\\github\\simple-html\\dist\\grid\\app.js",
+    "browserPath": "./app.js",
+    "relativePath": "app.js",
+    "type": "js",
+    "webIndexed": true
+  },
+  {
+    "absPath": "D:\\github\\simple-html\\dist\\grid\\styles\\styles.562932c1.css",
+    "browserPath": "./styles/styles.562932c1.css",
+    "relativePath": "styles/styles.562932c1.css",
+    "type": "css",
+    "webIndexed": true
+  }
+]
