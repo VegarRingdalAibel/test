@@ -1,0 +1,1 @@
+{"contents":"function disconnectedCallback(ctx, call) {\n  ctx.register(call);\n}\nexports.disconnectedCallback = disconnectedCallback;\n"}

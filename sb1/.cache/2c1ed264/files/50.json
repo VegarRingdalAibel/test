@@ -1,0 +1,1 @@
+{"contents":"function requestRender(ctx) {\n  if (ctx.isConnected) {\n    if (ctx.__wait) {} else {\n      ctx.__wait = true;\n      requestAnimationFrame(async () => {\n        await Promise.resolve(true);\n        ctx.render();\n        ctx.__wait = false;\n      });\n    }\n  }\n}\nexports.requestRender = requestRender;\n"}

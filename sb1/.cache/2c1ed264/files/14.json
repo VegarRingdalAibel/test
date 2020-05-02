@@ -1,0 +1,1 @@
+{"contents":"function rerenderInnerHTML() {\n  if (document.body) {\n    requestAnimationFrame(() => {\n      const oldBodyHtml = document.body.innerHTML;\n      document.body.innerHTML = '';\n      document.body.innerHTML = oldBodyHtml;\n    });\n  }\n}\nexports.rerenderInnerHTML = rerenderInnerHTML;\n"}

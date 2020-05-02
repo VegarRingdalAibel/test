@@ -1,0 +1,1 @@
+{"version":3,"file":"onCustomElementChange.js","sourceRoot":"","sources":["../../../src/package/polyfill/onCustomElementChange.ts"],"names":[],"mappings":";;;;;;;;;;;YAQA,mCAAa,qBAAqB,GAAG,CAAC,cAA2C,EAAE,EAAE;gBACjF,oBAAS,EAAE,CAAC;gBAEZ,IAAI,CAAO,UAAW,CAAC,QAAQ,CAAC,qBAAqB,EAAE;oBAC7C,UAAW,CAAC,QAAQ,CAAC,qBAAqB,GAAG,cAAc,CAAC;iBACrE;YACL,CAAC,EAAC;QACF,CAAC"}

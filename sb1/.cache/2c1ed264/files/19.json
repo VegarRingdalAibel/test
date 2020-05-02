@@ -1,0 +1,1 @@
+{"contents":"exports.__esModule = true;\nconst directives = new WeakMap();\nexports.directive = f => (...args) => {\n  const d = f(...args);\n  directives.set(d, true);\n  return d;\n};\nexports.isDirective = o => {\n  return typeof o === 'function' && directives.has(o);\n};\n"}

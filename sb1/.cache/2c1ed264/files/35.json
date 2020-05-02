@@ -1,0 +1,1 @@
+{"contents":"exports.__esModule = true;\nvar hmrCache_1 = __fusereq(33);\nexports.onCustomElementChange = changeListener => {\n  hmrCache_1.initCache();\n  if (!globalThis.hmrCache.onCustomElementChange) {\n    globalThis.hmrCache.onCustomElementChange = changeListener;\n  }\n};\n"}

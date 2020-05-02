@@ -1,0 +1,1 @@
+{"version":3,"file":"applyPolyfill.js","sourceRoot":"","sources":["../../../src/package/polyfill/applyPolyfill.ts"],"names":[],"mappings":";;;;IAMA,SAAgB,aAAa,CACzB,iBAAiC,+BAAc,CAAC,IAAI,EACpD,gBAAwB,GAAG,EAC3B,6BAA2D;QAE3D,oBAAS,EAAE,CAAC;QACZ,yDAA2B,EAAE,CAAC;QAE9B,6CAAqB,CACjB,iEAA+B,CAC3B,cAAc,EACd,aAAa,EACb,6BAA6B,CAChC,CACJ,CAAC;IACN,CAAC;;;;;;;;;;;;;;;;;;;;;QACD,CAAC"}
