@@ -1,8 +1,0 @@
-{
-  "imports": {
-    "@simple-html/core": "./@simple-html/core.js",
-    "@simple-html/router": "./@simple-html/router.js",
-    "custom-elements-hmr-polyfill": "./custom-elements-hmr-polyfill.js",
-    "lit-html": "./lit-html.js"
-  }
-}

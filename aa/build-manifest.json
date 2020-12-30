@@ -1,0 +1,466 @@
+{
+  "inputs": {
+    "web_modules/custom-elements-hmr-polyfill.js": {
+      "bytes": 10889,
+      "imports": []
+    },
+    "_dist_/hmr.js": {
+      "bytes": 270,
+      "imports": [
+        {
+          "path": "web_modules/custom-elements-hmr-polyfill.js"
+        }
+      ]
+    },
+    "_dist_/index.css": {
+      "bytes": 12060,
+      "imports": []
+    },
+    "web_modules/common/lit-html-55f97547.js": {
+      "bytes": 45263,
+      "imports": []
+    },
+    "web_modules/@simple-html/router.js": {
+      "bytes": 7970,
+      "imports": [
+        {
+          "path": "web_modules/common/lit-html-55f97547.js"
+        }
+      ]
+    },
+    "web_modules/lit-html.js": {
+      "bytes": 59,
+      "imports": [
+        {
+          "path": "web_modules/common/lit-html-55f97547.js"
+        }
+      ]
+    },
+    "web_modules/@simple-html/core.js": {
+      "bytes": 11650,
+      "imports": [
+        {
+          "path": "web_modules/common/lit-html-55f97547.js"
+        }
+      ]
+    },
+    "_dist_/routes/home.js": {
+      "bytes": 839,
+      "imports": [
+        {
+          "path": "web_modules/lit-html.js"
+        },
+        {
+          "path": "web_modules/@simple-html/core.js"
+        }
+      ]
+    },
+    "_dist_/routes/settings.js": {
+      "bytes": 1757,
+      "imports": [
+        {
+          "path": "web_modules/lit-html.js"
+        },
+        {
+          "path": "web_modules/@simple-html/core.js"
+        },
+        {
+          "path": "web_modules/@simple-html/router.js"
+        }
+      ]
+    },
+    "_dist_/routes/login.js": {
+      "bytes": 1472,
+      "imports": [
+        {
+          "path": "web_modules/lit-html.js"
+        },
+        {
+          "path": "web_modules/@simple-html/core.js"
+        },
+        {
+          "path": "web_modules/@simple-html/router.js"
+        }
+      ]
+    },
+    "_dist_/routes/routerConfig.js": {
+      "bytes": 1658,
+      "imports": [
+        {
+          "path": "web_modules/@simple-html/router.js"
+        },
+        {
+          "path": "web_modules/lit-html.js"
+        },
+        {
+          "path": "_dist_/routes/home.js"
+        },
+        {
+          "path": "_dist_/routes/settings.js"
+        },
+        {
+          "path": "_dist_/routes/login.js"
+        }
+      ]
+    },
+    "_dist_/routes/protected.js": {
+      "bytes": 1234,
+      "imports": [
+        {
+          "path": "web_modules/lit-html.js"
+        },
+        {
+          "path": "web_modules/@simple-html/core.js"
+        },
+        {
+          "path": "_dist_/routes/login.js"
+        },
+        {
+          "path": "web_modules/@simple-html/router.js"
+        }
+      ]
+    },
+    "_dist_/routes/childrouter.js": {
+      "bytes": 2027,
+      "imports": [
+        {
+          "path": "web_modules/lit-html.js"
+        },
+        {
+          "path": "web_modules/@simple-html/core.js"
+        },
+        {
+          "path": "_dist_/routes/routerConfig.js"
+        },
+        {
+          "path": "web_modules/@simple-html/router.js"
+        },
+        {
+          "path": "_dist_/routes/home.js"
+        },
+        {
+          "path": "_dist_/routes/settings.js"
+        },
+        {
+          "path": "_dist_/routes/protected.js"
+        }
+      ]
+    },
+    "_dist_/app-root.js": {
+      "bytes": 2709,
+      "imports": [
+        {
+          "path": "web_modules/lit-html.js"
+        },
+        {
+          "path": "web_modules/@simple-html/core.js"
+        },
+        {
+          "path": "_dist_/routes/routerConfig.js"
+        },
+        {
+          "path": "web_modules/@simple-html/router.js"
+        },
+        {
+          "path": "web_modules/@simple-html/router.js"
+        },
+        {
+          "path": "_dist_/routes/login.js"
+        },
+        {
+          "path": "_dist_/routes/childrouter.js"
+        }
+      ]
+    },
+    "_dist_/index.js": {
+      "bytes": 100,
+      "imports": [
+        {
+          "path": "_dist_/hmr.js"
+        },
+        {
+          "path": "_dist_/index.css"
+        },
+        {
+          "path": "_dist_/routes/routerConfig.js"
+        },
+        {
+          "path": "_dist_/app-root.js"
+        }
+      ]
+    }
+  },
+  "outputs": {
+    "../node_modules/.cache/snowpack/~~bundle~~/_dist_/index.js": {
+      "imports": [
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/chunk.6RNNPUHQ.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/chunk.SR7GRLS5.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/chunk.K5OJMX56.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/chunk.32AVIKSE.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/chunk.3N2YFPE7.js"
+        }
+      ],
+      "exports": [],
+      "inputs": {
+        "web_modules/custom-elements-hmr-polyfill.js": {
+          "bytesInOutput": 3359
+        },
+        "_dist_/hmr.js": {
+          "bytesInOutput": 122
+        },
+        "_dist_/index.css": {
+          "bytesInOutput": 0
+        },
+        "_dist_/app-root.js": {
+          "bytesInOutput": 1480
+        }
+      },
+      "bytes": 5175
+    },
+    "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/home.js": {
+      "imports": [
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.3N2YFPE7.js"
+        }
+      ],
+      "exports": [
+        "default"
+      ],
+      "inputs": {
+        "_dist_/routes/home.js": {
+          "bytesInOutput": 309
+        }
+      },
+      "bytes": 378
+    },
+    "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/settings.js": {
+      "imports": [
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.K5OJMX56.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.32AVIKSE.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.3N2YFPE7.js"
+        }
+      ],
+      "exports": [
+        "default"
+      ],
+      "inputs": {
+        "web_modules/@simple-html/router.js": {
+          "bytesInOutput": 74
+        },
+        "_dist_/routes/settings.js": {
+          "bytesInOutput": 775
+        }
+      },
+      "bytes": 1008
+    },
+    "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/login.js": {
+      "imports": [
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.6RNNPUHQ.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.32AVIKSE.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.3N2YFPE7.js"
+        }
+      ],
+      "exports": [
+        "default",
+        "isAuthenticted",
+        "logout"
+      ],
+      "inputs": {
+        "_dist_/routes/login.js": {
+          "bytesInOutput": 0
+        }
+      },
+      "bytes": 164
+    },
+    "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/protected.js": {
+      "imports": [
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.6RNNPUHQ.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.32AVIKSE.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.3N2YFPE7.js"
+        }
+      ],
+      "exports": [
+        "default"
+      ],
+      "inputs": {
+        "web_modules/@simple-html/core.js": {
+          "bytesInOutput": 576
+        },
+        "_dist_/routes/protected.js": {
+          "bytesInOutput": 454
+        }
+      },
+      "bytes": 1181
+    },
+    "../node_modules/.cache/snowpack/~~bundle~~/chunk.6RNNPUHQ.js": {
+      "imports": [
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/chunk.3N2YFPE7.js"
+        }
+      ],
+      "exports": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "inputs": {
+        "web_modules/@simple-html/router.js": {
+          "bytesInOutput": 376
+        },
+        "_dist_/routes/login.js": {
+          "bytesInOutput": 710
+        }
+      },
+      "bytes": 1171
+    },
+    "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/childrouter.js": {
+      "imports": [
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.SR7GRLS5.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.K5OJMX56.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.32AVIKSE.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/_dist_/routes/chunk.3N2YFPE7.js"
+        }
+      ],
+      "exports": [
+        "default"
+      ],
+      "inputs": {
+        "_dist_/routes/childrouter.js": {
+          "bytesInOutput": 1093
+        }
+      },
+      "bytes": 1274
+    },
+    "../node_modules/.cache/snowpack/~~bundle~~/chunk.SR7GRLS5.js": {
+      "imports": [
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/chunk.K5OJMX56.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/chunk.32AVIKSE.js"
+        },
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/chunk.3N2YFPE7.js"
+        }
+      ],
+      "exports": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "inputs": {
+        "web_modules/@simple-html/router.js": {
+          "bytesInOutput": 1158
+        },
+        "_dist_/routes/routerConfig.js": {
+          "bytesInOutput": 950
+        }
+      },
+      "bytes": 2287
+    },
+    "../node_modules/.cache/snowpack/~~bundle~~/chunk.K5OJMX56.js": {
+      "imports": [
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/chunk.32AVIKSE.js"
+        }
+      ],
+      "exports": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f"
+      ],
+      "inputs": {
+        "web_modules/@simple-html/router.js": {
+          "bytesInOutput": 585
+        }
+      },
+      "bytes": 671
+    },
+    "../node_modules/.cache/snowpack/~~bundle~~/chunk.32AVIKSE.js": {
+      "imports": [
+        {
+          "path": "../node_modules/.cache/snowpack/~~bundle~~/chunk.3N2YFPE7.js"
+        }
+      ],
+      "exports": [
+        "a",
+        "b"
+      ],
+      "inputs": {
+        "web_modules/common/lit-html-55f97547.js": {
+          "bytesInOutput": 54
+        },
+        "web_modules/@simple-html/router.js": {
+          "bytesInOutput": 751
+        }
+      },
+      "bytes": 868
+    },
+    "../node_modules/.cache/snowpack/~~bundle~~/chunk.3N2YFPE7.js": {
+      "imports": [],
+      "exports": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "inputs": {
+        "web_modules/common/lit-html-55f97547.js": {
+          "bytesInOutput": 8754
+        },
+        "web_modules/@simple-html/core.js": {
+          "bytesInOutput": 3137
+        },
+        "web_modules/lit-html.js": {
+          "bytesInOutput": 0
+        }
+      },
+      "bytes": 13023
+    },
+    "../node_modules/.cache/snowpack/~~bundle~~/_dist_/index.css": {
+      "imports": [],
+      "inputs": {
+        "_dist_/index.css": {
+          "bytesInOutput": 4461
+        }
+      },
+      "bytes": 4462
+    }
+  }
+}
